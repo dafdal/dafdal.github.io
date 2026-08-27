@@ -60,12 +60,30 @@
         }
         .banner {
             height: 60vh;
-            background: linear-gradient(135deg,#0f3460,#194b85);
+            /*B选项：极浅的淡蓝渐变背景，不再深色深蓝*/
+            background: linear-gradient(135deg, rgba(15,52,96,0.22), rgba(25,75,133,0.18));
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        /*点击波纹荡漾效果*/
+        .ripple{
+            position:absolute;
+            border-radius:50%;
+            background:rgba(115,184,255,0.35);
+            transform:scale(0);
+            animation: rippleAnim 0.75s ease-out forwards;
+            pointer-events:none;
+        }
+        @keyframes rippleAnim {
+            to{
+                transform:scale(4);
+                opacity:0;
+            }
         }
         /*banner文字入场动画*/
         .banner h1 {
@@ -74,12 +92,18 @@
             opacity:0;
             transform: translateY(25px);
             animation: bannerFadeIn 1s ease forwards;
+            z-index:2;
+            position:relative;
+            color:#0f3460;
         }
         .banner p {
             font-size: 20px;
             opacity:0;
             transform: translateY(25px);
             animation: bannerFadeIn 1s ease 0.3s forwards;
+            z-index:2;
+            position:relative;
+            color:#143b6b;
         }
         @keyframes bannerFadeIn {
             to{
@@ -230,7 +254,7 @@
     </nav>
 </header>
 
-<!-- 首屏横幅 -->
+<!-- 首屏横幅，点击产生果冻波纹 -->
 <div class="banner" id="home">
     <h1>大风大浪集团</h1>
     <p>乘风破浪，开拓全新产业版图</p>
@@ -256,7 +280,7 @@
         </div>
         <div class="brand-card">
             <h3>战神飞拍</h3>
-            <p>乒乓球拍飞行系统</p>
+            <p>专业影像拍摄设备品牌</p>
         </div>
     </div>
 </section>
@@ -287,6 +311,21 @@
 <button id="backTop">↑</button>
 
 <script>
+//横幅点击果冻波纹荡漾
+const bannerDom = document.querySelector('.banner');
+bannerDom.addEventListener('click', function(e){
+    const ripple = document.createElement('span');
+    ripple.classList.add('ripple');
+    const rect = bannerDom.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    ripple.style.left = x+'px';
+    ripple.style.top = y+'px';
+    bannerDom.appendChild(ripple);
+    //动画结束移除元素
+    setTimeout(()=>{ripple.remove();},800);
+})
+
 const backBtn = document.getElementById('backTop');
 window.addEventListener('scroll',function(){
     if(window.scrollY > 300){
