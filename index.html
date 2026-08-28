@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -32,6 +32,11 @@
             font-size: 28px;
             font-weight: bold;
         }
+        .nav-main{
+            display:flex;
+            align-items:center;
+            gap:20px;
+        }
         nav a {
             color: #fff;
             margin-left: 30px;
@@ -58,6 +63,57 @@
         nav a:hover::after{
             width:100%;
         }
+        /* 右上角i圆圈按钮 */
+        .info-wrap{
+            position:relative;
+        }
+        .info-icon{
+            width:34px;
+            height:34px;
+            border:2px solid #fff;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#fff;
+            font-weight:bold;
+            cursor:pointer;
+            user-select:none;
+            transition:0.25s;
+        }
+        .info-icon:hover{
+            background:#73b8ff;
+            border-color:#73b8ff;
+            color:#0f3460;
+        }
+        /* 免责声明弹窗 */
+        .info-popup{
+            position:absolute;
+            top:42px;
+            right:0;
+            width:340px;
+            background:#ffffff;
+            color:#222;
+            padding:18px;
+            border-radius:10px;
+            box-shadow:0 6px 20px rgba(0,0,0,0.25);
+            z-index:1001;
+            display:none;
+        }
+        .info-popup.show{
+            display:block;
+        }
+        .info-popup h4{
+            color:#0f3460;
+            margin-bottom:10px;
+            font-size:16px;
+        }
+        .info-popup p{
+            font-size:14px;
+            line-height:1.65;
+            color:#333;
+        }
+
         .banner {
             height: 60vh;
             /*B选项：极浅的淡蓝渐变背景，不再深色深蓝*/
@@ -226,6 +282,10 @@
                 flex-direction: column;
                 gap:15px;
             }
+            .nav-main{
+                width:100%;
+                justify-content:space-between;
+            }
             nav {
                 display:flex;
                 flex-wrap: wrap;
@@ -235,6 +295,10 @@
             nav a {margin:0;}
             .brand-wrap {grid-template-columns: 1fr;}
             .banner h1 {font-size:32px;}
+            .info-popup{
+                width:calc(100vw - 40px);
+                right:-10px;
+            }
         }
     </style>
 </head>
@@ -242,16 +306,26 @@
 <!-- 顶部导航 -->
 <header>
     <div class="logo">大风大浪集团</div>
-    <nav>
-        <a href=" https://dafdal.github.io/#home ">首页</a>
-        <!-- 新增集团介绍，跳转外部网页，target="_blank"新标签页打开 -->
-        <a href="https://dafdal.github.io/dafdaljt/" target="_blank">集团介绍</a>
-        <a href=" https://dafdal.github.io/#about ">集团简介</a>
-        <a href=" https://dafdal.github.io/#brand ">旗下品牌</a>
-        <a href=" https://dafdal.github.io/#ceo ">CEO介绍</a>
-        <a href=" https://dafdal.github.io/#contact ">联系我们</a>
-        <a href="https://rqpmyl.gicp.fun/" target="_blank" rel="noopener">工具箱</a>
-    </nav>
+    <div class="nav-main">
+        <nav>
+            <a href=" https://dafdal.github.io/#home ">首页</a>
+            <!-- 新增集团介绍，跳转外部网页，target="_blank"新标签页打开 -->
+            <a href="https://dafdal.github.io/dafdaljt/" target="_blank">集团介绍</a>
+            <a href=" https://dafdal.github.io/#about ">集团简介</a>
+            <a href=" https://dafdal.github.io/#brand ">旗下品牌</a>
+            <a href=" https://dafdal.github.io/#ceo ">CEO介绍</a>
+            <a href=" https://dafdal.github.io/#contact ">联系我们</a>
+            <a href="https://rqpmyl.gicp.fun/" target="_blank" rel="noopener">工具箱</a>
+        </nav>
+        <!-- 圆圈i信息按钮+免责弹窗 -->
+        <div class="info-wrap">
+            <div class="info-icon">i</div>
+            <div class="info-popup">
+                <h4>免责声明</h4>
+                <p>本网站为完全虚构演示网站，大风大浪集团、相关人物、企业信息、联系方式均为虚构创作，不对应任何现实实体。网站所有内容仅供网页技术演示学习使用，不构成任何商业参考。若有雷同纯属巧合。</p>
+            </div>
+        </div>
+    </div>
 </header>
 
 <!-- 首屏横幅，点击产生果冻波纹 -->
@@ -311,6 +385,18 @@
 <button id="backTop">↑</button>
 
 <script>
+//右上角i弹窗点击开关
+const infoIcon = document.querySelector('.info-icon');
+const infoPopup = document.querySelector('.info-popup');
+infoIcon.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    infoPopup.classList.toggle('show');
+})
+//点击页面空白关闭弹窗
+document.addEventListener('click',()=>{
+    infoPopup.classList.remove('show');
+})
+
 //横幅点击果冻波纹荡漾
 const bannerDom = document.querySelector('.banner');
 bannerDom.addEventListener('click', function(e){
@@ -340,3 +426,4 @@ backBtn.addEventListener('click',function(){
 </script>
 </body>
 </html>
+
