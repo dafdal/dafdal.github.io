@@ -1,181 +1,636 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大风大浪集团 - 官方网站</title>
-    <!-- 新增：浏览器标签左上角小Logo favicon，仅此一处改动 -->
-    <link rel="icon" type="image/png" href="logo.png">
-    <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: "HarmonyOS Sans", "鸿蒙黑体", sans-serif; }
-html { /*全局平滑滚动*/ scroll-behavior: smooth; }
-header { background: #0f3460; color: white; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; /*新增：导航固定置顶+阴影*/ position: sticky; top:0; z-index:998; box-shadow: 0 3px 12px rgba(0,0,0,0.18); }
-.logo { font-size: 28px; font-weight: bold; }
-.nav-main{ display:flex; align-items:center; gap:20px; }
-nav a { color: #fff; margin-left: 30px; text-decoration: none; font-size: 16px; transition: all 0.3s ease; position: relative; }
-nav a:hover { color:#73b8ff; transform: translateY(-3px); }
-/*导航hover底部下划线*/
-nav a::after{ content:""; position:absolute; left:0; bottom:-6px; width:0; height:2px; background:#73b8ff; transition:0.3s ease; }
-nav a:hover::after{ width:100%; }
-/* 右上角i圆圈按钮 */
-.info-wrap{ position:relative; }
-.info-icon{ width:34px; height:34px; border:2px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:bold; cursor:pointer; user-select:none; transition:0.25s; }
-.info-icon:hover{ background:#73b8ff; border-color:#73b8ff; color:#0f3460; }
-/* 免责声明弹窗 */
-.info-popup{ position:absolute; top:42px; right:0; width:340px; background:#ffffff; color:#222; padding:18px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.25); z-index:1001; display:none; }
-.info-popup.show{ display:block; }
-.info-popup h4{ color:#0f3460; margin-bottom:10px; font-size:16px; }
-.info-popup p{ font-size:14px; line-height:1.65; color:#333; }
-.banner { height: 60vh; /*B选项：极浅的淡蓝渐变背景，不再深色深蓝*/ background: linear-gradient(135deg, rgba(15,52,96,0.22), rgba(25,75,133,0.18)); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; position: relative; overflow: hidden; }
-/*点击波纹荡漾效果*/
-.ripple{ position:absolute; border-radius:50%; background:rgba(115,184,255,0.35); transform:scale(0); animation: rippleAnim 0.75s ease-out forwards; pointer-events:none; }
-@keyframes rippleAnim { to{ transform:scale(4); opacity:0; } }
-/*banner文字入场动画*/
-.banner h1 { font-size: 50px; margin-bottom: 15px; opacity:0; transform: translateY(25px); animation: bannerFadeIn 1s ease forwards; z-index:2; position:relative; color:#0f3460; }
-.banner p { font-size: 20px; opacity:0; transform: translateY(25px); animation: bannerFadeIn 1s ease 0.3s forwards; z-index:2; position:relative; color:#143b6b; }
-@keyframes bannerFadeIn { to{ opacity:1; transform: translateY(0); } }
-section { padding: 60px 5%; }
-.title { text-align: center; font-size: 32px; color: #0f3460; margin-bottom: 40px; position:relative; }
-/*标题蓝色装饰横线*/
-.title::after{ content:""; width:70px; height:4px; background:#0f3460; position:absolute; bottom:-12px; left:50%; transform: translateX(-50%); border-radius:2px; }
-.about-box { display: flex; gap: 50px; align-items: center; }
-.about-text { flex:1; font-size:17px; line-height:1.8; color:#333; /*新增：简介圆角阴影卡片*/ background:#ffffff; padding:32px; border-radius:14px; box-shadow:0 6px 22px rgba(15,52,96,0.11); transition:0.3s ease; }
-.about-text:hover{ box-shadow:0 10px 28px rgba(15,52,96,0.16); }
-.brand-wrap { display: grid; grid-template-columns: 1fr 1fr; gap:30px; margin-top:20px; }
-.brand-card { background:#f0f7ff; padding:30px; border-radius:12px; text-align:center; transition: all 0.3s ease; }
-.brand-card:hover { transform: translateY(-6px); box-shadow:0 8px 20px rgba(15,52,96,0.15); }
-.brand-card h3 { font-size:22px; color:#0f3460; margin-bottom:10px; }
-.contact-box,.ceo-box { background:#f0f7ff; max-width: 600px; margin: 0 auto; padding: 35px; border-radius: 12px; font-size: 18px; line-height: 2.2; transition: all 0.3s ease; }
-.contact-box:hover,.ceo-box:hover{ box-shadow:0 6px 18px rgba(15,52,96,0.12); }
-footer { background:#0f3460; color:#fff; text-align:center; padding:30px; margin-top:20px; }
-#backTop{ position: fixed; right:30px; bottom:30px; width:50px; height:50px; background:#0f3460; color:#fff; border-radius:50%; border:none; font-size:18px; cursor:pointer; opacity:0; visibility:hidden; transition:0.3s ease; z-index:999; }
-#backTop.show{ opacity:1; visibility:visible; }
-#backTop:hover{ background:#16537e; transform: translateY(-3px); }
-/* 手机自适应 */
-@media (max-width:768px) {
-header { flex-direction: column; gap:15px; }
-.nav-main{ width:100%; justify-content:space-between; }
-nav { display:flex; flex-wrap: wrap; justify-content:center; gap:12px; }
-nav a {margin:0;}
-.brand-wrap {grid-template-columns: 1fr;}
-.banner h1 {font-size:32px;}
-.info-popup{ width:calc(100vw - 40px); right:-10px; }
-}
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>大风大浪集团</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "HarmonyOS Sans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.25), transparent 35%),
+      radial-gradient(circle at 85% 10%, rgba(129, 140, 248, 0.18), transparent 30%),
+      radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.12), transparent 35%),
+      linear-gradient(135deg, #020617 0%, #0f172a 45%, #1e293b 100%);
+    color: #e2e8f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-attachment: fixed;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(600px circle at 20% 30%, rgba(56, 189, 248, 0.12), transparent 40%),
+      radial-gradient(500px circle at 80% 70%, rgba(165, 180, 252, 0.10), transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+    animation: bgFloat 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgFloat {
+    0%   { background-position: 0% 0%, 100% 100%; }
+    100% { background-position: 10% 10%, 90% 90%; }
+  }
+
+  header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    background: rgba(15, 23, 42, 0.35);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+  }
+
+  .nav-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e0f2fe;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #38bdf8, #a5b4fc, #f0abfc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    margin-left: 2rem;
+    position: relative;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #38bdf8, #a5b4fc);
+    transition: width 0.35s ease;
+    border-radius: 2px;
+  }
+
+  nav a:hover {
+    color: #ffffff;
+  }
+
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 110px 2rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border-radius: 20px;
+    padding: 2.8rem;
+    margin: 2.2rem 0;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    box-shadow:
+      0 10px 40px rgba(15, 23, 42, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0 0 1px rgba(56, 189, 248, 0.05);
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(500px circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 40%),
+      radial-gradient(400px circle at 100% 100%, rgba(165, 180, 252, 0.10), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+
+  .card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(56, 189, 248, 0.35);
+    box-shadow:
+      0 20px 60px rgba(15, 23, 42, 0.55),
+      0 0 40px rgba(56, 189, 248, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card .corner {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-color: rgba(125, 211, 252, 0.9);
+    border-style: solid;
+    pointer-events: none;
+    opacity:0;
+  }
+  .card.show .corner{
+    animation: cornerGrow 0.6s ease-out forwards;
+  }
+  .card.show .corner.tr{animation-delay:0.12s;}
+  .card.show .corner.bl{animation-delay:0.24s;}
+  .card.show .corner.br{animation-delay:0.36s;}
+  @keyframes cornerGrow{
+    from{opacity:0; transform:scale(0.7);}
+    to{opacity:1; transform:scale(1);}
+  }
+
+  .card .corner.tl {
+    top: 14px;
+    left: 14px;
+    border-width: 2px 0 0 2px;
+    border-radius: 10px 0 0 0;
+  }
+
+  .card .corner.tr {
+    top: 14px;
+    right: 14px;
+    border-width: 2px 2px 0 0;
+    border-radius: 0 10px 0 0;
+  }
+
+  .card .corner.bl {
+    bottom: 14px;
+    left: 14px;
+    border-width: 0 0 2px 2px;
+    border-radius: 0 0 0 10px;
+  }
+
+  .card .corner.br {
+    bottom: 14px;
+    right: 14px;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 10px 0;
+  }
+
+  .card h2 {
+    color: #e0f2fe;
+    margin-bottom: 1rem;
+    font-size: 1.9rem;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(90deg, #7dd3fc, #c7d2fe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .card p {
+    position: relative;
+    z-index: 1;
+    color: #cbd5e1;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+
+  .hero h1 {
+    font-size: 3.4rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    background: linear-gradient(120deg, #38bdf8, #a5b4fc, #f0abfc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: titleBreath 4s ease-in-out infinite alternate;
+  }
+  @keyframes titleBreath {
+    0% { filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.3)); }
+    100% { filter: drop-shadow(0 0 32px rgba(165, 180, 252, 0.55)); }
+  }
+
+  .hero p {
+    font-size: 1.25rem;
+    color: #94a3b8;
+  }
+
+  .disclaimer {
+    position: relative;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 16px;
+    padding: 1.3rem 1.2rem 1rem;
+    margin: 2rem 0;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .info-icon {
+    position: absolute;
+    top: -14px;
+    left: 16px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #38bdf8, #a78bfa);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+  }
+  .disclaimer strong {
+    color: #fcd34d;
+  }
+
+  .brand-item {
+    background: rgba(15, 23, 42, 0.35);
+    backdrop-filter: blur(10px);
+    padding: 1.4rem;
+    border-radius: 14px;
+    margin-top: 1rem;
+    border-left: 3px solid #38bdf8;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+
+  .brand-item:hover {
+    transform: translateX(6px);
+    border-color: rgba(56, 189, 248, 0.45);
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.12);
+  }
+
+  .brand-item h3 {
+    color: #93c5fd;
+    margin-bottom: 0.4rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+    position: relative;
+    z-index: 1;
+  }
+
+  #backTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px) scale(0.8);
+
+    background:
+      radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+        rgba(255, 255, 255, 0.9),
+        rgba(56, 189, 248, 0.65) 35%,
+        rgba(99, 102, 241, 0.55) 70%,
+        rgba(15, 23, 42, 0.95) 100%);
+
+    box-shadow:
+      0 10px 30px rgba(56, 189, 248, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.4s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  #backTop.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  #backTop::before {
+    content: "↑";
+    position: relative;
+    z-index: 2;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+
+  #backTop::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg,
+      transparent 0deg,
+      rgba(125, 211, 252, 0.7) 60deg,
+      transparent 120deg,
+      rgba(165, 180, 252, 0.7) 240deg,
+      transparent 300deg);
+    z-index: 1;
+    opacity: 0;
+    filter: blur(1px);
+    transition: opacity 0.35s ease;
+  }
+
+  #backTop:hover {
+    transform: scale(1.12);
+    box-shadow:
+      0 15px 40px rgba(56, 189, 248, 0.65),
+      0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+      0 0 40px rgba(125, 211, 252, 0.55);
+  }
+
+  #backTop:hover::after {
+    opacity: 0.55;
+    animation: rotateRing 4s linear infinite;
+  }
+
+  @keyframes rotateRing {
+    to { transform: rotate(360deg); }
+  }
+
+  #particleCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #38bdf8, #6366f1);
+    border-radius: 10px;
+  }
+</style>
 </head>
 <body>
-<!-- 顶部导航 -->
+
 <header>
-<div class="logo">大风大浪集团</div>
-<div class="nav-main">
-<nav>
-<a href=" https://dafdal.github.io/#home ">首页</a>
-<!-- 新增集团介绍，跳转外部网页，target="_blank"新标签页打开 -->
-<a href="https://dafdal.github.io/dafdaljt/" target="_blank">集团介绍</a>
-<a href=" https://dafdal.github.io/#about ">集团简介</a>
-<a href=" https://dafdal.github.io/#brand ">旗下品牌</a>
-<a href=" https://dafdal.github.io/#ceo ">CEO介绍</a>
-<a href=" https://dafdal.github.io/#contact ">联系我们</a>
-<a href="https://rqpmyl.gicp.fun/" target="_blank" rel="noopener">工具箱</a>
-</nav>
-<!-- 圆圈i信息按钮+免责弹窗 -->
-<div class="info-wrap">
-<div class="info-icon">i</div>
-<div class="info-popup">
-<h4>免责声明</h4>
-<p>本网站为完全虚构演示网站，大风大浪集团、相关人物、企业信息、联系方式均为虚构创作，不对应任何现实实体。网站所有内容仅供网页技术演示学习使用，不构成任何商业参考。若有雷同纯属巧合。</p>
-</div>
-</div>
-</div>
+  <div class="nav-wrap">
+    <div class="logo">大风大浪集团</div>
+    <nav>
+      <a href="#home">首页</a>
+      <a href="#about">集团简介</a>
+      <a href="#brand">旗下品牌</a>
+      <a href="#ceo">CEO介绍</a>
+      <a href="#contact">联系我们</a>
+      <a href="https://dafdal.github.io/2918youxi" target="_blank">游戏中心</a>
+    </nav>
+  </div>
 </header>
-<!-- 首屏横幅，点击产生果冻波纹 -->
-<div class="banner" id="home">
-<h1>大风大浪集团</h1>
-<p>乘风破浪，开拓全新产业版图</p>
+
+<div class="container">
+  <section id="home" class="card hero">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+    <h1>大风大浪集团</h1>
+    <p>乘风破浪，开拓全新产业版图</p>
+  </section>
+
+  <div class="disclaimer">
+    <span class="info-icon">i</span>
+    <strong>免责声明</strong><br>
+    本网站为完全虚构演示网站，大风大浪集团、相关人物、企业信息、联系方式均为虚构创作，不对应任何现实实体。网站所有内容仅供网页技术演示学习使用，不构成任何商业参考。若有雷同纯属巧合。
+  </div>
+
+  <section id="about" class="card">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+    <h2>集团简介</h2>
+    <p>大风大浪集团是综合产业集团，业务覆盖汽车制造、乒乓球运动装备两大核心赛道，坚持创新发展理念。集团稳步扩张业务版图，打造年轻化、高性能产品，面向大众提供高性价比产品。集团秉持勇往直前的企业精神，不惧挑战，在行业内持续创新突破。</p>
+  </section>
+
+  <section id="brand" class="card">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+    <h2>旗下知名品牌</h2>
+    <div class="brand-item">
+      <h3>风浪汽车</h3>
+      <p>高性能民用汽车研发制造品牌</p>
+    </div>
+    <div class="brand-item">
+      <h3>战神飞拍</h3>
+      <p>专业乒乓球装备品牌</p>
+    </div>
+  </section>
+
+  <section id="ceo" class="card">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+    <h2>集团CEO介绍</h2>
+    <p><strong>姓名：</strong>汤学臻</p>
+    <p><strong>职位：</strong>大风大浪集团创始人、首席执行官</p>
+    <p style="margin-top:0.6rem;">统筹风浪汽车、战神飞拍两大核心品牌全部业务，专注汽车与乒乓球装备创新研发，带领集团稳步拓展产业市场，以敢于直面大风大浪的理念打造优质产品。</p>
+  </section>
+
+  <section id="contact" class="card">
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+    <h2>联系我们</h2>
+    <p>联系电话：150****4684</p>
+    <p>企业邮箱：3638****@qq.com</p>
+  </section>
 </div>
-<!-- 集团简介 -->
-<section id="about">
-<h2 class="title">集团简介</h2>
-<div class="about-box">
-<div class="about-text">
-<p>大风大浪集团是综合产业集团，业务覆盖汽车制造、影像数码两大核心赛道，坚持创新发展理念。集团稳步扩张业务版图，打造年轻化、高性能产品，面向大众提供高性价比产品。集团秉持勇往直前的企业精神，不惧挑战，在行业内持续创新突破。</p>
-</div>
-</div>
-</section>
-<!-- 旗下品牌 -->
-<section id="brand">
-<h2 class="title">旗下知名品牌</h2>
-<div class="brand-wrap">
-<div class="brand-card">
-<h3>风浪汽车</h3>
-<p>高性能民用汽车研发制造品牌</p>
-</div>
-<div class="brand-card">
-<h3>战神飞拍</h3>
-<p>专业影像拍摄设备品牌</p>
-</div>
-</div>
-</section>
-<!-- CEO介绍 新增完整板块 -->
-<section id="ceo">
-<h2 class="title">集团CEO介绍</h2>
-<div class="ceo-box">
-<p>姓名：汤学臻</p>
-<p>职位：大风大浪集团创始人、首席执行官</p>
-<p>简介：统筹风浪汽车、战神飞拍两大核心品牌全部业务，专注汽车与影像设备创新研发，带领集团稳步拓展产业市场，以敢于直面大风大浪的理念打造优质产品。</p>
-</div>
-<!-- 联系我们 -->
-<section id="contact">
-<h2 class="title">联系我们</h2>
-<div class="contact-box">
-<p>联系电话：150****4684</p>
-<p>企业邮箱：3638****@qq.com</p>
-</div>
-</section>
-</section>
-<!-- 页脚 -->
+
 <footer>
-<p>大风大浪集团 © 2026 版权所有</p>
+  <p>大风大浪集团 © 2026 版权所有</p>
 </footer>
-<button id="backTop">↑</button>
+
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"></button>
+
+<canvas id="particleCanvas"></canvas>
+
 <script>
-//右上角i弹窗点击开关
-const infoIcon = document.querySelector('.info-icon');
-const infoPopup = document.querySelector('.info-popup');
-infoIcon.addEventListener('click',(e)=>{
-e.stopPropagation();
-infoPopup.classList.toggle('show');
-})
-//点击页面空白关闭弹窗
-document.addEventListener('click',()=>{
-infoPopup.classList.remove('show');
-})
-//横幅点击果冻波纹荡漾
-const bannerDom = document.querySelector('.banner');
-bannerDom.addEventListener('click', function(e){
-const ripple = document.createElement('span');
-ripple.classList.add('ripple');
-const rect = bannerDom.getBoundingClientRect();
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
-ripple.style.left = x+'px';
-ripple.style.top = y+'px';
-bannerDom.appendChild(ripple);
-//动画结束移除元素
-setTimeout(()=>{ripple.remove();},800);
-})
-const backBtn = document.getElementById('backTop');
-window.addEventListener('scroll',function(){
-if(window.scrollY > 300){
-backBtn.classList.add('show');
-}else{
-backBtn.classList.remove('show');
-}
-})
-backBtn.addEventListener('click',function(){
-window.scrollTo({top:0,behavior:'smooth'});
-})
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+    createParticles(e.clientX, e.clientY);
+  });
+
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(item => {
+      if (item.isIntersecting) {
+        item.target.classList.add('show');
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => observer.observe(c));
+
+  const backTop = document.getElementById('backTop');
+
+  backTop.addEventListener('mousemove', function (e) {
+    const rect = backTop.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    backTop.style.setProperty('--mx', x + '%');
+    backTop.style.setProperty('--my', y + '%');
+  });
+
+  backTop.addEventListener('mouseleave', function () {
+    backTop.style.setProperty('--mx', '50%');
+    backTop.style.setProperty('--my', '50%');
+  });
+
+  // 滚动到页面20%高度才显示返回顶部按钮
+  window.addEventListener('scroll', ()=>{
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const percent = scrollTop / (scrollHeight - window.innerHeight);
+    if(percent >= 0.2){
+      backTop.classList.add('show');
+    }else{
+      backTop.classList.remove('show');
+    }
+  })
+
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 5 + 2;
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.life = 1;
+      this.decay = Math.random() * 0.018 + 0.008;
+      this.size = Math.random() * 3 + 1.5;
+      this.color = Math.random() > 0.5
+        ? `rgba(125, 211, 252, ${this.life})`
+        : `rgba(165, 180, 252, ${this.life})`;
+      this.glow = Math.random() * 12 + 6;
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vx *= 0.97;
+      this.vy *= 0.97;
+      this.life -= this.decay;
+      this.color = this.color.replace(/[\d.]+\)$/, `${this.life})`);
+    }
+
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = Math.max(this.life, 0);
+      ctx.shadowBlur = this.glow;
+      ctx.shadowColor = this.color;
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function createParticles(x, y) {
+    for (let i = 0; i < 40; i++) {
+      particles.push(new Particle(x, y));
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles = particles.filter(p => p.life > 0);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+
+  animateParticles();
 </script>
+
 </body>
 </html>
-
