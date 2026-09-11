@@ -1,636 +1,777 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>大风大浪集团</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#04060d">
+<title>大风大浪集团 - 官方网站</title>
+<link rel="icon" type="image/png" href="https://dafdal.github.io/logo.png">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Orbitron:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap">
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "HarmonyOS Sans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
-  }
+:root{
+  --bg0:#04060d; --bg1:#070b18; --bg2:#0b1226; --bg3:#0e162c;
+  --ink:#e9f1ff; --mut:#8ea3c9; --dim:#5c7096;
+  --cy:#21e6ff; --bl:#3d7bff; --vi:#8a5cff; --pk:#ff2e88;
+  --line:rgba(116,154,255,.14);
+  --grad:linear-gradient(100deg,#21e6ff 0%,#3d7bff 45%,#8a5cff 100%);
+  --font-d:"Orbitron","Noto Sans SC",sans-serif;
+  --font-c:"Noto Sans SC","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-c);
+  background:var(--bg0);
+  color:var(--ink);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:rgba(33,230,255,.28);color:#fff}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#05070f}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#21e6ff,#3d7bff);border-radius:6px;border:2px solid #05070f}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+main,footer{position:relative;z-index:2}
 
-  html {
-    scroll-behavior: smooth;
-  }
+/* ===== 背景层 ===== */
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(62vw 48vw at 82% -8%,rgba(61,123,255,.12),transparent 60%),
+    radial-gradient(52vw 42vw at 6% 34%,rgba(138,92,255,.09),transparent 62%),
+    radial-gradient(44vw 40vw at 50% 108%,rgba(33,230,255,.07),transparent 60%);
+}
+#fx{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.85}
+.cursor{position:fixed;width:540px;height:540px;left:0;top:0;z-index:61;pointer-events:none;
+  background:radial-gradient(circle,rgba(33,230,255,.09),transparent 62%);
+  mix-blend-mode:screen;border-radius:50%;transform:translate(-1000px,-1000px)}
+@media (pointer:coarse){.cursor{display:none}}
 
-  body {
-    background:
-      radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.25), transparent 35%),
-      radial-gradient(circle at 85% 10%, rgba(129, 140, 248, 0.18), transparent 30%),
-      radial-gradient(circle at 50% 90%, rgba(236, 72, 153, 0.12), transparent 35%),
-      linear-gradient(135deg, #020617 0%, #0f172a 45%, #1e293b 100%);
-    color: #e2e8f0;
-    min-height: 100vh;
-    overflow-x: hidden;
-    background-attachment: fixed;
-  }
+/* ===== 滚动进度条 ===== */
+#sp{position:fixed;top:0;left:0;right:0;height:3px;z-index:1001;
+  background:var(--grad);transform:scaleX(0);transform-origin:0 0}
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(600px circle at 20% 30%, rgba(56, 189, 248, 0.12), transparent 40%),
-      radial-gradient(500px circle at 80% 70%, rgba(165, 180, 252, 0.10), transparent 40%);
-    pointer-events: none;
-    z-index: 0;
-    animation: bgFloat 12s ease-in-out infinite alternate;
-  }
+/* ===== 顶栏 ===== */
+header{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:space-between;align-items:center;
+  padding:0 clamp(16px,5vw,64px);height:72px;border-bottom:1px solid transparent;transition:.35s}
+header.scrolled{background:rgba(5,8,18,.78);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--line);box-shadow:0 8px 30px rgba(2,4,10,.5)}
+.logo{display:flex;align-items:center;gap:13px;text-decoration:none}
+.logo .mark{width:42px;height:42px;flex:none;filter:drop-shadow(0 0 10px rgba(33,230,255,.35))}
+.logo .lt{display:flex;flex-direction:column;line-height:1.15}
+.logo .lt b{font-size:20px;font-weight:900;letter-spacing:3px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo .lt small{font-family:var(--font-d);font-size:8.5px;letter-spacing:3.6px;color:var(--dim);text-transform:uppercase;margin-top:3px}
+nav{display:flex;align-items:center;gap:4px}
+nav a{position:relative;color:var(--mut);text-decoration:none;font-size:15px;padding:9px 15px;transition:color .3s;letter-spacing:1px}
+nav a::after{content:"";position:absolute;left:15px;right:15px;bottom:3px;height:2px;background:var(--grad);border-radius:1px;transform:scaleX(0);transform-origin:left;transition:transform .32s ease}
+nav a:hover,nav a.active{color:var(--ink)}
+nav a:hover::after,nav a.active::after{transform:scaleX(1)}
+.header-right{display:flex;align-items:center;gap:16px}
+.info-wrap{position:relative}
+.info-icon{width:34px;height:34px;border:1px solid rgba(116,154,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:var(--cy);font-family:var(--font-d);font-size:14px;font-weight:700;cursor:pointer;user-select:none;transition:.28s;background:rgba(33,230,255,.05)}
+.info-icon:hover{background:var(--cy);color:#04121f;box-shadow:0 0 22px rgba(33,230,255,.5)}
+.info-popup{position:absolute;top:44px;right:0;width:330px;background:rgba(8,13,26,.96);border:1px solid var(--line);backdrop-filter:blur(14px);
+  padding:20px 22px;border-radius:4px;box-shadow:0 18px 50px rgba(2,4,10,.7);z-index:1000;opacity:0;visibility:hidden;transform:translateY(10px);transition:.3s}
+.info-popup.show{opacity:1;visibility:visible;transform:none}
+.info-popup h4{color:var(--cy);font-size:14px;letter-spacing:3px;margin-bottom:10px;font-weight:700}
+.info-popup p{font-size:13px;line-height:1.8;color:var(--mut)}
+#burger{display:none;width:40px;height:40px;background:none;border:1px solid var(--line);border-radius:4px;cursor:pointer;position:relative}
+#burger span{position:absolute;left:10px;right:10px;height:2px;background:var(--cy);transition:.3s}
+#burger span:nth-child(1){top:12px}
+#burger span:nth-child(2){top:19px}
+#burger span:nth-child(3){top:26px}
+#burger.on span:nth-child(1){top:19px;transform:rotate(45deg)}
+#burger.on span:nth-child(2){opacity:0}
+#burger.on span:nth-child(3){top:19px;transform:rotate(-45deg)}
+.mnav{position:fixed;top:72px;left:0;right:0;z-index:890;display:none;flex-direction:column;padding:10px 24px 22px;
+  background:rgba(5,8,18,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
+  transform:translateY(-112%);transition:.38s}
+.mnav.open{transform:none}
+.mnav a{color:var(--mut);text-decoration:none;padding:14px 6px;font-size:15px;letter-spacing:2px;border-bottom:1px dashed rgba(116,154,255,.12)}
+.mnav a:hover,.mnav a.active{color:var(--cy)}
+body.lock{overflow:hidden}
 
-  @keyframes bgFloat {
-    0%   { background-position: 0% 0%, 100% 100%; }
-    100% { background-position: 10% 10%, 90% 90%; }
-  }
+/* ===== 角标体系 ===== */
+.fr{position:relative}
+.fr::before,.fr::after{content:"";position:absolute;width:22px;height:22px;border:0 solid var(--cy);pointer-events:none;z-index:5}
+.fr::before{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
+.fr::after{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+.fr i{position:absolute;width:20px;height:20px;border:0 solid var(--cy);pointer-events:none;z-index:5}
+.fr i.cr1{top:-1px;right:-1px;border-top-width:2px;border-right-width:2px}
+.fr i.cr2{bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px}
 
-  header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 999;
-    background: rgba(15, 23, 42, 0.35);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-  }
+/* ===== Hero ===== */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:120px 5% 40px;scroll-margin-top:0}
+.hero .bg{position:absolute;inset:0;background:url(assets/hero.jpg) center 35%/cover no-repeat;transform:scale(1.06)}
+.hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,6,13,.62) 0%,rgba(4,6,13,.34) 42%,rgba(4,6,13,.72) 82%,var(--bg0) 100%)}
+.hero .grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(120,160,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(120,160,255,.055) 1px,transparent 1px);
+  background-size:64px 64px;-webkit-mask-image:radial-gradient(72% 62% at 50% 42%,#000 30%,transparent 100%);mask-image:radial-gradient(72% 62% at 50% 42%,#000 30%,transparent 100%)}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:1}
+.a1{width:46vw;height:46vw;left:-12vw;top:-14vw;background:radial-gradient(circle,rgba(33,230,255,.26),transparent 65%);animation:drift 18s ease-in-out infinite alternate}
+.a2{width:42vw;height:42vw;right:-10vw;top:8vw;background:radial-gradient(circle,rgba(138,92,255,.24),transparent 65%);animation:drift 24s ease-in-out infinite alternate-reverse}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(5vw,4vw) scale(1.18)}}
+.hero-inner{position:relative;z-index:3;text-align:center;max-width:1120px;width:100%;padding:58px 40px 66px;border:1px solid rgba(116,154,255,.16);background:linear-gradient(180deg,rgba(7,11,24,.36),rgba(7,11,24,.12));backdrop-filter:blur(4px)}
+.hero-kick{display:inline-flex;align-items:center;gap:16px;font-family:var(--font-d);font-size:12px;letter-spacing:5px;color:var(--cy);text-transform:uppercase;animation:up .9s .1s both}
+.hero-kick::before,.hero-kick::after{content:"";width:48px;height:1px}
+.hero-kick::before{background:linear-gradient(90deg,transparent,var(--cy))}
+.hero-kick::after{background:linear-gradient(90deg,var(--cy),transparent)}
+.hero h1{font-weight:900;font-size:clamp(44px,8vw,94px);line-height:1.1;letter-spacing:8px;margin:20px 0 10px;
+  background:linear-gradient(115deg,#ffffff 0%,#a8e2ff 26%,#21e6ff 52%,#8f8bff 78%,#ffffff 100%);
+  background-size:230% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 9s linear infinite,up .9s .22s both;filter:drop-shadow(0 8px 40px rgba(33,230,255,.26))}
+@keyframes shine{0%{background-position:0% 0}100%{background-position:230% 0}}
+.hero .slogan{font-size:clamp(15px,2.3vw,20px);color:var(--mut);letter-spacing:7px;font-weight:300;margin-bottom:34px;animation:up .9s .38s both}
+.chips{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:up .9s .52s both}
+.chip{position:relative;padding:10px 22px;border:1px solid rgba(33,230,255,.38);color:#bfeaff;font-size:13.5px;letter-spacing:3px;background:rgba(33,230,255,.06);
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);transition:.3s;cursor:default}
+.chip:hover{background:rgba(33,230,255,.15);box-shadow:0 0 26px rgba(33,230,255,.28);transform:translateY(-3px)}
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.scrolldown{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:9px}
+.scrolldown span{width:1px;height:52px;background:linear-gradient(180deg,rgba(33,230,255,.25),transparent);position:relative;overflow:hidden}
+.scrolldown span::after{content:"";position:absolute;left:0;top:-42%;width:100%;height:42%;background:var(--cy);animation:drop 1.8s ease-in-out infinite}
+@keyframes drop{to{top:110%}}
+.scrolldown b{font-family:var(--font-d);font-size:10px;letter-spacing:4px;color:var(--dim);font-weight:500}
 
-  .nav-wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-  }
+/* ===== 海浪 ===== */
+.wavebox{position:absolute;left:0;right:0;height:120px;pointer-events:none;overflow:visible}
+.hero .wavebox{bottom:0;transform:translateY(50%);z-index:2}
+.wavetrack{display:flex;width:200%;height:100%;animation:waveSlide 26s linear infinite}
+@keyframes waveSlide{to{transform:translateX(-50%)}}
 
-  .logo {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #e0f2fe;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg, #38bdf8, #a5b4fc, #f0abfc);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+/* ===== 跑马灯 ===== */
+.marquee{position:relative;z-index:2;margin:46px 0;padding:15px 0;overflow:hidden;
+  background:linear-gradient(90deg,rgba(11,18,38,.92),rgba(15,24,46,.92),rgba(11,18,38,.92));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  transform:rotate(-1.3deg) scale(1.02)}
+.mtrack{display:flex;width:max-content;animation:marq 32s linear infinite}
+.marquee:hover .mtrack{animation-play-state:paused}
+.mtrack .it{display:flex;align-items:center;white-space:nowrap}
+.mtrack span{font-size:15px;letter-spacing:4px;color:var(--mut);padding:0 20px}
+.mtrack em{font-style:normal;color:var(--cy);font-family:var(--font-d);font-size:13px;padding:0 20px;letter-spacing:3px}
+.mtrack .dmd{width:8px;height:8px;transform:rotate(45deg);background:linear-gradient(135deg,var(--cy),var(--vi));opacity:.85;flex:none}
+@keyframes marq{to{transform:translateX(-50%)}}
 
-  nav a {
-    color: #cbd5e1;
-    text-decoration: none;
-    margin-left: 2rem;
-    position: relative;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
+/* ===== 通用区块 ===== */
+.sec{padding:110px clamp(16px,5vw,64px);scroll-margin-top:88px}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:54px;flex-wrap:wrap}
+.kicker{display:flex;align-items:center;gap:13px;font-family:var(--font-d);font-size:12px;letter-spacing:5px;color:var(--cy);text-transform:uppercase}
+.kicker::before{content:"";width:34px;height:2px;background:var(--grad)}
+h2.st{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:3px;color:var(--ink);margin-top:12px}
+h2.st .thin{color:var(--dim);font-weight:300}
+.sec-no{font-family:var(--font-d);font-size:clamp(58px,9vw,104px);font-weight:900;line-height:1;user-select:none;
+  color:transparent;-webkit-text-stroke:1px rgba(116,154,255,.22)}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .75s ease,transform .75s ease}
+.rv.in{opacity:1;transform:none}
+.rv[data-d="1"]{transition-delay:.1s}.rv[data-d="2"]{transition-delay:.2s}.rv[data-d="3"]{transition-delay:.3s}
 
-  nav a::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #38bdf8, #a5b4fc);
-    transition: width 0.35s ease;
-    border-radius: 2px;
-  }
+/* ===== 集团简介 ===== */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.about-text p{color:var(--mut);font-size:16.5px;line-height:2;margin-bottom:20px}
+.about-text p b{color:var(--ink);font-weight:700}
+.about-points{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+.about-points li{list-style:none;display:flex;align-items:flex-start;gap:13px;color:var(--mut);font-size:15px;line-height:1.7}
+.about-points li svg{flex:none;margin-top:4px;color:var(--cy)}
+.about-panel{position:relative;padding:10px}
+.about-panel .pic{position:relative;border:1px solid var(--line);overflow:hidden}
+.about-panel img{width:100%;display:block;transition:transform .8s ease;filter:saturate(1.08)}
+.about-panel:hover img{transform:scale(1.05)}
+.about-panel .tag{position:absolute;left:22px;bottom:22px;z-index:4;display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-size:11px;letter-spacing:3px;color:#bfeaff;
+  background:rgba(5,9,18,.78);border:1px solid rgba(33,230,255,.4);padding:9px 16px;backdrop-filter:blur(6px)}
+.about-panel .tag::before{content:"";width:8px;height:8px;background:var(--cy);box-shadow:0 0 10px var(--cy);border-radius:50%;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:64px}
+.fcard{position:relative;padding:32px 28px;background:linear-gradient(165deg,rgba(15,23,45,.7),rgba(8,12,26,.92));border:1px solid var(--line);transition:.35s ease;overflow:hidden}
+.fcard:hover{border-color:rgba(33,230,255,.5);transform:translateY(-7px);box-shadow:0 18px 46px rgba(2,5,14,.6),inset 0 0 0 1px rgba(33,230,255,.14)}
+.fcard .ic{width:52px;height:52px;margin-bottom:20px;color:var(--cy);transition:.35s}
+.fcard:hover .ic{transform:translateY(-3px) scale(1.06)}
+.fcard h4{font-size:19px;color:#fff;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+.fcard p{color:var(--mut);font-size:14.5px;line-height:1.85}
 
-  nav a:hover {
-    color: #ffffff;
-  }
+/* ===== 旗下品牌 ===== */
+.brand-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;perspective:1400px}
+.bcard{position:relative;background:linear-gradient(160deg,rgba(14,21,42,.92),rgba(7,11,24,.97));border:1px solid var(--line);overflow:hidden;transition:border-color .35s,box-shadow .35s;transform-style:preserve-3d;will-change:transform}
+.bcard:hover{border-color:rgba(33,230,255,.55);box-shadow:0 26px 70px rgba(2,5,14,.65),0 0 60px rgba(33,230,255,.1)}
+.bcard.pink{--cy:var(--pk);--glow:rgba(255,46,136,.12)}
+.bcard .shine{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.09) 50%,transparent 58%);transform:translateX(-130%);transition:transform .8s ease}
+.bcard:hover .shine{transform:translateX(130%)}
+.bcard .media{height:236px;position:relative;overflow:hidden;z-index:1}
+.bcard .media img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;filter:saturate(1.1)}
+.bcard:hover .media img{transform:scale(1.08)}
+.bcard .media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,6,13,.1) 30%,rgba(4,6,13,.86) 100%)}
+.bcard .med-tag{position:absolute;top:18px;left:18px;z-index:2;font-family:var(--font-d);font-size:10px;letter-spacing:3px;color:#bfeaff;background:rgba(5,9,18,.72);border:1px solid rgba(33,230,255,.4);padding:7px 13px;backdrop-filter:blur(6px)}
+.bcard .body{position:relative;z-index:2;padding:30px 30px 34px}
+.bcard h3{font-size:27px;font-weight:900;letter-spacing:3px;color:#fff;margin-top:7px}
+.bcard .en{font-family:var(--font-d);font-size:11px;letter-spacing:4.5px;color:var(--dim);text-transform:uppercase;margin-top:6px}
+.bcard .body p{color:var(--mut);font-size:15px;line-height:1.9;margin:16px 0 20px}
+.tags{display:flex;gap:10px;flex-wrap:wrap}
+.tag{font-size:12.5px;color:var(--cy);border:1px solid rgba(33,230,255,.38);padding:5px 14px;background:rgba(33,230,255,.07);letter-spacing:1px;transition:.3s}
+.tag:hover{background:rgba(33,230,255,.16)}
+.bcard .act{display:inline-flex;align-items:center;gap:9px;margin-top:26px;padding:12px 24px;border:none;cursor:pointer;color:#031018;font-size:14px;font-weight:700;letter-spacing:2px;
+  background:linear-gradient(100deg,#21e6ff,#3d7bff);transition:.32s;clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.bcard .act svg{width:16px;height:16px;transition:transform .3s}
+.bcard .act:hover{box-shadow:0 0 34px rgba(33,230,255,.45);transform:translateY(-2px)}
+.bcard .act:hover svg{transform:translateX(4px)}
 
-  nav a:hover::after {
-    width: 100%;
-  }
+/* ===== CEO ===== */
+.ceo-card{max-width:980px;margin:0 auto;display:grid;grid-template-columns:290px 1fr;gap:48px;align-items:center;padding:50px;
+  background:linear-gradient(165deg,rgba(15,23,45,.75),rgba(8,12,26,.94));border:1px solid var(--line);overflow:hidden}
+.ceo-card:hover{box-shadow:0 22px 60px rgba(2,5,14,.55)}
+.ceo-avatar{position:relative;width:250px;height:250px;margin:0 auto}
+.ring{position:absolute;border-radius:50%;border:1px dashed rgba(33,230,255,.42);animation:spin 16s linear infinite}
+.r1{inset:-16px}
+.r2{inset:-34px;border-color:rgba(138,92,255,.36);animation-duration:26s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ceo-core{position:absolute;inset:0;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 34% 28%,rgba(33,230,255,.16),rgba(7,11,24,.9) 68%);
+  border:1px solid rgba(33,230,255,.4);box-shadow:0 0 44px rgba(33,230,255,.16),inset 0 0 34px rgba(3,7,16,.8)}
+.ceo-core svg{width:86%;height:86%}
+.ceo-core text{font-family:var(--font-c);font-weight:900}
+.ceo-info .kicker{color:var(--vi)}
+.ceo-info h3{font-size:clamp(26px,3.4vw,36px);font-weight:900;letter-spacing:4px;color:#fff;margin:14px 0 6px}
+.ceo-info .role{font-size:15px;color:var(--cy);letter-spacing:2px;margin-bottom:18px}
+.ceo-info .bio{color:var(--mut);font-size:15.5px;line-height:2;max-width:520px}
+.ceo-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.ceo-tags span{font-size:12.5px;color:#cdd9f5;border:1px solid rgba(116,154,255,.3);padding:6px 15px;letter-spacing:2px;background:rgba(116,154,255,.07)}
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 110px 2rem 4rem;
-    position: relative;
-    z-index: 1;
-  }
+/* ===== 联系我们 ===== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:900px;margin:0 auto}
+.ctile{position:relative;display:flex;align-items:center;gap:22px;padding:32px 30px;background:linear-gradient(160deg,rgba(15,23,45,.7),rgba(8,12,26,.92));border:1px solid var(--line);transition:.35s}
+.ctile:hover{border-color:rgba(33,230,255,.5);transform:translateY(-5px);box-shadow:0 18px 44px rgba(2,5,14,.55)}
+.c-ic{width:54px;height:54px;flex:none;display:flex;align-items:center;justify-content:center;border:1px solid rgba(33,230,255,.4);color:var(--cy);background:rgba(33,230,255,.06);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.c-ic svg{width:26px;height:26px}
+.c-label{font-size:12.5px;color:var(--dim);letter-spacing:3px;margin-bottom:4px}
+.c-val{font-size:21px;font-weight:700;color:var(--ink);letter-spacing:1px;font-family:var(--font-d)}
+.c-val.zh{font-family:var(--font-c)}
+.cpy{margin-left:auto;flex:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:1px solid rgba(116,154,255,.35);color:var(--mut);cursor:pointer;transition:.3s}
+.cpy:hover{color:var(--cy);border-color:var(--cy);box-shadow:0 0 16px rgba(33,230,255,.3)}
+.cpy svg{width:18px;height:18px}
 
-  .card {
-    position: relative;
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    border-radius: 20px;
-    padding: 2.8rem;
-    margin: 2.2rem 0;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    box-shadow:
-      0 10px 40px rgba(15, 23, 42, 0.45),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 0 0 1px rgba(56, 189, 248, 0.05);
-    opacity: 0;
-    transform: translateY(40px);
-    transition:
-      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s ease,
-      border-color 0.4s ease;
-    overflow: hidden;
-  }
+/* ===== 页脚 ===== */
+footer{position:relative;margin-top:110px;background:var(--bg1);border-top:1px solid var(--line);padding:96px clamp(16px,5vw,64px) 40px;overflow:hidden}
+footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.foot-brand{display:flex;align-items:center;gap:13px}
+.foot-brand .mark{width:38px;height:38px;filter:drop-shadow(0 0 8px rgba(33,230,255,.3))}
+.foot-brand b{font-size:18px;font-weight:900;letter-spacing:3px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.foot-brand small{display:block;font-family:var(--font-d);font-size:8px;letter-spacing:3px;color:var(--dim);margin-top:3px;text-transform:uppercase}
+.foot-links{display:flex;gap:8px;flex-wrap:wrap}
+.foot-links a{color:var(--mut);text-decoration:none;font-size:14px;padding:8px 14px;letter-spacing:1px;transition:.3s;position:relative}
+.foot-links a::after{content:"";position:absolute;left:14px;right:14px;bottom:2px;height:1px;background:var(--cy);transform:scaleX(0);transform-origin:left;transition:.3s}
+.foot-links a:hover{color:var(--cy)}
+.foot-links a:hover::after{transform:scaleX(1)}
+.foot-bar{max-width:1200px;margin:44px auto 0;padding-top:26px;border-top:1px solid rgba(116,154,255,.1);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-bar p{font-size:13px;color:var(--dim)}
+.foot-bar .disc{font-size:12px}
 
-  .card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(500px circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 40%),
-      radial-gradient(400px circle at 100% 100%, rgba(165, 180, 252, 0.10), transparent 40%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-  }
+/* ===== 回到顶部 ===== */
+#backTop{position:fixed;right:26px;bottom:26px;width:54px;height:54px;border-radius:50%;border:1px solid var(--line);background:rgba(8,13,26,.9);backdrop-filter:blur(8px);cursor:pointer;z-index:1100;
+  opacity:0;visibility:hidden;transform:translateY(14px);transition:.35s;color:#fff}
+#backTop.show{opacity:1;visibility:visible;transform:none}
+#backTop:hover{border-color:var(--cy);box-shadow:0 0 26px rgba(33,230,255,.35)}
+#backTop svg{position:absolute;inset:5px;transform:rotate(-90deg)}
+#backTop .arr{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--cy)}
+#backTop .arr svg{transform:none;width:20px;height:20px;position:static}
 
-  .card.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ===== Toast ===== */
+#toast{position:fixed;left:50%;bottom:36px;transform:translate(-50%,18px);z-index:1200;padding:13px 26px;font-size:14px;color:var(--ink);letter-spacing:1px;
+  background:rgba(9,14,28,.94);border:1px solid rgba(33,230,255,.45);backdrop-filter:blur(10px);
+  opacity:0;visibility:hidden;transition:.35s;pointer-events:none;max-width:86vw}
+#toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+#toast::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad)}
 
-  .card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(56, 189, 248, 0.35);
-    box-shadow:
-      0 20px 60px rgba(15, 23, 42, 0.55),
-      0 0 40px rgba(56, 189, 248, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  }
-
-  .card:hover::before {
-    opacity: 1;
-  }
-
-  .card .corner {
-    position: absolute;
-    width: 44px;
-    height: 44px;
-    border-color: rgba(125, 211, 252, 0.9);
-    border-style: solid;
-    pointer-events: none;
-    opacity:0;
-  }
-  .card.show .corner{
-    animation: cornerGrow 0.6s ease-out forwards;
-  }
-  .card.show .corner.tr{animation-delay:0.12s;}
-  .card.show .corner.bl{animation-delay:0.24s;}
-  .card.show .corner.br{animation-delay:0.36s;}
-  @keyframes cornerGrow{
-    from{opacity:0; transform:scale(0.7);}
-    to{opacity:1; transform:scale(1);}
-  }
-
-  .card .corner.tl {
-    top: 14px;
-    left: 14px;
-    border-width: 2px 0 0 2px;
-    border-radius: 10px 0 0 0;
-  }
-
-  .card .corner.tr {
-    top: 14px;
-    right: 14px;
-    border-width: 2px 2px 0 0;
-    border-radius: 0 10px 0 0;
-  }
-
-  .card .corner.bl {
-    bottom: 14px;
-    left: 14px;
-    border-width: 0 0 2px 2px;
-    border-radius: 0 0 0 10px;
-  }
-
-  .card .corner.br {
-    bottom: 14px;
-    right: 14px;
-    border-width: 0 2px 2px 0;
-    border-radius: 0 0 10px 0;
-  }
-
-  .card h2 {
-    color: #e0f2fe;
-    margin-bottom: 1rem;
-    font-size: 1.9rem;
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(90deg, #7dd3fc, #c7d2fe);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .card p {
-    position: relative;
-    z-index: 1;
-    color: #cbd5e1;
-  }
-
-  .hero {
-    text-align: center;
-    padding: 5rem 2rem;
-  }
-
-  .hero h1 {
-    font-size: 3.4rem;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-    background: linear-gradient(120deg, #38bdf8, #a5b4fc, #f0abfc);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: titleBreath 4s ease-in-out infinite alternate;
-  }
-  @keyframes titleBreath {
-    0% { filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.3)); }
-    100% { filter: drop-shadow(0 0 32px rgba(165, 180, 252, 0.55)); }
-  }
-
-  .hero p {
-    font-size: 1.25rem;
-    color: #94a3b8;
-  }
-
-  .disclaimer {
-    position: relative;
-    font-size: 0.85rem;
-    color: #94a3b8;
-    background: rgba(251, 191, 36, 0.08);
-    border: 1px solid rgba(251, 191, 36, 0.25);
-    border-radius: 16px;
-    padding: 1.3rem 1.2rem 1rem;
-    margin: 2rem 0;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  }
-  .info-icon {
-    position: absolute;
-    top: -14px;
-    left: 16px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: linear-gradient(90deg, #38bdf8, #a78bfa);
-    display: grid;
-    place-items: center;
-    color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
-  }
-  .disclaimer strong {
-    color: #fcd34d;
-  }
-
-  .brand-item {
-    background: rgba(15, 23, 42, 0.35);
-    backdrop-filter: blur(10px);
-    padding: 1.4rem;
-    border-radius: 14px;
-    margin-top: 1rem;
-    border-left: 3px solid #38bdf8;
-    border: 1px solid rgba(148, 163, 184, 0.15);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-  }
-
-  .brand-item:hover {
-    transform: translateX(6px);
-    border-color: rgba(56, 189, 248, 0.45);
-    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.12);
-  }
-
-  .brand-item h3 {
-    color: #93c5fd;
-    margin-bottom: 0.4rem;
-  }
-
-  footer {
-    text-align: center;
-    padding: 2rem;
-    color: #64748b;
-    border-top: 1px solid rgba(148, 163, 184, 0.12);
-    position: relative;
-    z-index: 1;
-  }
-
-  #backTop {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(20px) scale(0.8);
-
-    background:
-      radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
-        rgba(255, 255, 255, 0.9),
-        rgba(56, 189, 248, 0.65) 35%,
-        rgba(99, 102, 241, 0.55) 70%,
-        rgba(15, 23, 42, 0.95) 100%);
-
-    box-shadow:
-      0 10px 30px rgba(56, 189, 248, 0.25),
-      0 0 0 1px rgba(255, 255, 255, 0.2) inset;
-
-    transition:
-      opacity 0.4s ease,
-      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.4s ease;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  #backTop.show {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0) scale(1);
-  }
-
-  #backTop::before {
-    content: "↑";
-    position: relative;
-    z-index: 2;
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: #0f172a;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-  }
-
-  #backTop::after {
-    content: "";
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg,
-      transparent 0deg,
-      rgba(125, 211, 252, 0.7) 60deg,
-      transparent 120deg,
-      rgba(165, 180, 252, 0.7) 240deg,
-      transparent 300deg);
-    z-index: 1;
-    opacity: 0;
-    filter: blur(1px);
-    transition: opacity 0.35s ease;
-  }
-
-  #backTop:hover {
-    transform: scale(1.12);
-    box-shadow:
-      0 15px 40px rgba(56, 189, 248, 0.65),
-      0 0 0 1px rgba(255, 255, 255, 0.4) inset,
-      0 0 40px rgba(125, 211, 252, 0.55);
-  }
-
-  #backTop:hover::after {
-    opacity: 0.55;
-    animation: rotateRing 4s linear infinite;
-  }
-
-  @keyframes rotateRing {
-    to { transform: rotate(360deg); }
-  }
-
-  #particleCanvas {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #0f172a;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #38bdf8, #6366f1);
-    border-radius: 10px;
-  }
+/* ===== 响应式 ===== */
+@media (max-width:960px){
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .brand-grid{grid-template-columns:1fr}
+  .feat{grid-template-columns:1fr}
+  .ceo-card{grid-template-columns:1fr;gap:36px;padding:36px 26px;text-align:center}
+  .ceo-info .kicker{justify-content:center}
+  .ceo-info .bio{margin:0 auto}
+  .ceo-tags{justify-content:center}
+  .contact-grid{grid-template-columns:1fr}
+  .sec{padding:80px clamp(16px,5vw,40px)}
+}
+@media (max-width:860px){
+  nav{display:none}
+  .header-right nav{display:none}
+  #burger{display:block}
+  .mnav{display:flex}
+  .hero-inner{padding:44px 22px 54px}
+  .hero .grid{background-size:44px 44px}
+  .ctile{flex-wrap:wrap}
+  .cpy{margin-left:0}
+}
+@media (max-width:520px){
+  .logo .lt small{display:none}
+  .sec-no{display:none}
+  .marquee{transform:rotate(-2deg) scale(1.04)}
+  .ceo-avatar{width:200px;height:200px}
+  .about-panel .tag{left:12px;bottom:12px;font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+  .hero .bg{transform:none}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="nav-wrap">
-    <div class="logo">大风大浪集团</div>
-    <nav>
+<div class="bg-glow" aria-hidden="true"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div id="sp" aria-hidden="true"></div>
+
+<!-- ===== 顶部导航 ===== -->
+<header id="head">
+  <a class="logo" href="#home" aria-label="大风大浪集团 首页">
+    <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <defs><linearGradient id="lg-mark" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#21e6ff"/><stop offset="1" stop-color="#8a5cff"/></linearGradient></defs>
+      <rect x="2" y="2" width="44" height="44" rx="10" stroke="url(#lg-mark)" stroke-width="2" fill="rgba(33,230,255,.06)"/>
+      <path d="M10 30c5-8 9-8 14 0s9 8 14 0" stroke="url(#lg-mark)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M10 20c5-8 9-8 14 0s9 8 14 0" stroke="url(#lg-mark)" stroke-width="2.6" stroke-linecap="round" opacity=".5"/>
+      <circle cx="38" cy="10" r="2.2" fill="#21e6ff"/>
+    </svg>
+    <span class="lt"><b>大风大浪集团</b><small>DAFENG DALANG GROUP</small></span>
+  </a>
+  <nav aria-label="主导航">
+    <a href="#home">首页</a>
+    <a href="https://dafdal.github.io/dafdaljt/" target="_blank" rel="noopener">集团介绍</a>
+    <a href="#about">集团简介</a>
+    <a href="#brand">旗下品牌</a>
+    <a href="#ceo">CEO介绍</a>
+    <a href="#contact">联系我们</a>
+    <a href="https://rqpmyl.gicp.fun/" target="_blank" rel="noopener">工具箱</a>
+  </nav>
+  <div class="header-right">
+    <div class="info-wrap fr">
+      <div class="info-icon" id="infoIcon" role="button" aria-label="免责声明" tabindex="0">i</div>
+      <div class="info-popup" id="infoPop">
+        <h4>免责声明</h4>
+        <p>本网站为完全虚构演示网站，大风大浪集团、相关人物、企业信息、联系方式均为虚构创作，不对应任何现实实体。网站所有内容仅供网页技术演示学习使用，不构成任何商业参考。若有雷同纯属巧合。</p>
+      </div>
+    </div>
+    <button id="burger" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mnav" id="mnav">
+  <a href="#home">首页</a>
+  <a href="https://dafdal.github.io/dafdaljt/" target="_blank" rel="noopener">集团介绍</a>
+  <a href="#about">集团简介</a>
+  <a href="#brand">旗下品牌</a>
+  <a href="#ceo">CEO介绍</a>
+  <a href="#contact">联系我们</a>
+  <a href="https://rqpmyl.gicp.fun/" target="_blank" rel="noopener">工具箱</a>
+</div>
+
+<main>
+<!-- ===== Hero ===== -->
+<section class="hero" id="home">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+  <div class="aurora a1" aria-hidden="true"></div>
+  <div class="aurora a2" aria-hidden="true"></div>
+  <div class="hero-inner fr">
+    <i class="cr1"></i><i class="cr2"></i>
+    <p class="hero-kick">EST. 2026 · 综合产业集团</p>
+    <h1>大风大浪集团</h1>
+    <p class="slogan">乘风破浪，开拓全新产业版图</p>
+    <div class="chips">
+      <span class="chip">风浪汽车</span>
+      <span class="chip">战神飞拍</span>
+      <span class="chip">综合产业</span>
+    </div>
+  </div>
+  <div class="scrolldown" aria-hidden="true"><span></span><b>SCROLL</b></div>
+  <div class="wavebox" aria-hidden="true">
+    <div class="wavetrack">
+      <svg viewBox="0 0 2880 120" preserveAspectRatio="none" style="flex:0 0 50%;height:100%">
+        <path d="M0,62 C240,116 480,12 720,58 C960,104 1200,20 1440,62 C1680,104 1920,22 2160,60 C2400,98 2640,30 2880,62 L2880,120 L0,120 Z" fill="#04060d"/>
+      </svg>
+      <svg viewBox="0 0 2880 120" preserveAspectRatio="none" style="flex:0 0 50%;height:100%">
+        <path d="M0,62 C240,116 480,12 720,58 C960,104 1200,20 1440,62 C1680,104 1920,22 2160,60 C2400,98 2640,30 2880,62 L2880,120 L0,120 Z" fill="#04060d"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 跑马灯 ===== -->
+<div class="marquee" aria-hidden="true">
+  <div class="mtrack">
+    <div class="it">
+      <em>乘风破浪</em><span class="dmd"></span><span>开拓全新产业版图</span><span class="dmd"></span><em>风浪汽车</em><span class="dmd"></span><span>战神飞拍 · 乒乓球装备</span><span class="dmd"></span><em>高性能研发</em><span class="dmd"></span><span>高性价比</span><span class="dmd"></span><em>创新突破</em><span class="dmd"></span><span>综合产业集团</span><span class="dmd"></span>
+    </div>
+    <div class="it">
+      <em>乘风破浪</em><span class="dmd"></span><span>开拓全新产业版图</span><span class="dmd"></span><em>风浪汽车</em><span class="dmd"></span><span>战神飞拍 · 乒乓球装备</span><span class="dmd"></span><em>高性能研发</em><span class="dmd"></span><span>高性价比</span><span class="dmd"></span><em>创新突破</em><span class="dmd"></span><span>综合产业集团</span><span class="dmd"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 集团简介 ===== -->
+<section class="sec" id="about">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div><p class="kicker">01 · ABOUT</p><h2 class="st">集团简介</h2></div>
+      <span class="sec-no" aria-hidden="true">01</span>
+    </div>
+    <div class="about-grid">
+      <div class="about-text rv">
+        <p>大风大浪集团是<strong>综合产业集团</strong>，业务覆盖<strong>汽车制造、乒乓球装备</strong>两大核心赛道，坚持创新发展理念。集团稳步扩张业务版图，打造年轻化、高性能产品，面向大众提供高性价比产品。集团秉持勇往直前的企业精神，不惧挑战，在行业内持续创新突破。</p>
+        <ul class="about-points">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>双赛道并行：汽车制造 + 乒乓球装备</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>面向大众，坚持高性价比产品路线</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>勇往直前的企业精神，持续创新突破</li>
+        </ul>
+      </div>
+      <div class="about-panel rv" data-d="1">
+        <div class="pic fr">
+          <i class="cr1"></i><i class="cr2"></i>
+          <img src="assets/hero.jpg" alt="风浪之海">
+          <span class="tag">DRIVEN BY THE WAVES</span>
+        </div>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="fcard fr rv">
+        <i class="cr1"></i><i class="cr2"></i>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.7L18.6 9.6l-4.7 1.9L12 16.2l-1.9-4.7L5.4 9.6l4.7-1.9z"/><path d="M18.8 14.6l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9z"/></svg>
+        <h4>坚持创新研发</h4>
+        <p>聚焦技术突破与产品迭代，以创新驱动两大品牌持续向前。</p>
+      </div>
+      <div class="fcard fr rv" data-d="1">
+        <i class="cr1"></i><i class="cr2"></i>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><circle cx="7.2" cy="16.8" r="2.1"/><circle cx="16.8" cy="7.2" r="2.1"/></svg>
+        <h4>高性价比路线</h4>
+        <p>面向大众市场，在性能与价格之间取得平衡，让好产品触手可及。</p>
+      </div>
+      <div class="fcard fr rv" data-d="2">
+        <i class="cr1"></i><i class="cr2"></i>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16c4.5-7 9-7 13.5 0s4 1.8 4-.4"/><path d="M16 4h5v5"/><path d="M21 4l-8.5 8.5"/></svg>
+        <h4>勇往直前</h4>
+        <p>不惧行业风浪，以敢闯敢拼的姿态稳步扩张产业版图。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 旗下品牌 ===== -->
+<section class="sec" id="brand">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div><p class="kicker">02 · BRANDS</p><h2 class="st">旗下知名品牌</h2></div>
+      <span class="sec-no" aria-hidden="true">02</span>
+    </div>
+    <div class="brand-grid">
+      <article class="bcard fr rv">
+        <i class="cr1"></i><i class="cr2"></i>
+        <span class="shine" aria-hidden="true"></span>
+        <div class="media">
+          <span class="med-tag">BRAND 01 · AUTOMOTIVE</span>
+          <img src="assets/brand-car.jpg" alt="风浪汽车">
+        </div>
+        <div class="body">
+          <h3>风浪汽车</h3>
+          <p class="en">FENGLANG MOTORS</p>
+          <p>高性能民用汽车研发制造品牌，以年轻化设计语言与硬核性能，为大众出行注入速度与激情。</p>
+          <div class="tags"><span class="tag">高性能</span><span class="tag">年轻化</span><span class="tag">高性价比</span></div>
+          <button class="act" data-demo="brand-car">查看详情<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+      <article class="bcard pink fr rv" data-d="1">
+        <i class="cr1"></i><i class="cr2"></i>
+        <span class="shine" aria-hidden="true"></span>
+        <div class="media">
+          <span class="med-tag">BRAND 02 · TABLE TENNIS</span>
+          <img src="assets/brand-pingpong.jpg" alt="战神飞拍乒乓球装备">
+        </div>
+        <div class="body">
+          <h3>战神飞拍</h3>
+          <p class="en">ZHANSHEN FEIPAI</p>
+          <p>专业乒乓球器材研发制造品牌，专注高性能球拍与赛场装备，助每一位选手打出凌厉一击。</p>
+          <div class="tags"><span class="tag">专业球拍</span><span class="tag">赛场装备</span><span class="tag">手感优先</span></div>
+          <button class="act" data-demo="brand-pingpong">查看详情<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CEO ===== -->
+<section class="sec" id="ceo">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div><p class="kicker">03 · CEO</p><h2 class="st">集团CEO介绍</h2></div>
+      <span class="sec-no" aria-hidden="true">03</span>
+    </div>
+    <div class="ceo-card fr rv">
+      <i class="cr1"></i><i class="cr2"></i>
+      <div class="ceo-avatar" aria-hidden="true">
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <div class="ceo-core">
+          <svg viewBox="0 0 100 100" fill="none">
+            <defs><linearGradient id="lg-av" x1="0" y1="0" x2="100" y2="100"><stop offset="0" stop-color="#21e6ff"/><stop offset="1" stop-color="#8a5cff"/></linearGradient></defs>
+            <polygon points="50,6 90,28 90,72 50,94 10,72 10,28" stroke="url(#lg-av)" stroke-width="2.4" fill="rgba(33,230,255,.07)"/>
+            <polygon points="50,20 78,35 78,65 50,80 22,65 22,35" stroke="rgba(33,230,255,.35)" stroke-width="1" fill="none"/>
+            <text x="50" y="63" text-anchor="middle" font-size="34" fill="#dff6ff">汤</text>
+          </svg>
+        </div>
+      </div>
+      <div class="ceo-info">
+        <p class="kicker">FOUNDER &amp; CEO</p>
+        <h3>汤学臻</h3>
+        <p class="role">大风大浪集团创始人、首席执行官</p>
+        <p class="bio">统筹风浪汽车、战神飞拍两大核心品牌全部业务，专注汽车与乒乓球装备创新研发，带领集团稳步拓展产业市场，以敢于直面大风大浪的理念打造优质产品。</p>
+        <div class="ceo-tags"><span>战略统筹</span><span>产品创新</span><span>市场拓展</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 联系我们 ===== -->
+<section class="sec" id="contact">
+  <div class="sec-inner">
+    <div class="sec-head rv">
+      <div><p class="kicker">04 · CONTACT</p><h2 class="st">联系我们</h2></div>
+      <span class="sec-no" aria-hidden="true">04</span>
+    </div>
+    <div class="contact-grid">
+      <div class="ctile fr rv">
+        <i class="cr1"></i><i class="cr2"></i>
+        <div class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.8 3h2.4a1 1 0 0 1 1 .8l.7 3.4a1 1 0 0 1-.4 1l-1.7 1.3a12 12 0 0 0 5.7 5.7l1.3-1.7a1 1 0 0 1 1-.4l3.4.7a1 1 0 0 1 .8 1V19a2 2 0 0 1-2.2 2A16.8 16.8 0 0 1 4.8 5.2 2 2 0 0 1 6.8 3z"/></svg></div>
+        <div><p class="c-label">联系电话</p><p class="c-val zh">150****4684</p></div>
+        <button class="cpy" data-copy="150****4684" aria-label="复制联系电话"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button>
+      </div>
+      <div class="ctile fr rv" data-d="1">
+        <i class="cr1"></i><i class="cr2"></i>
+        <div class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></div>
+        <div><p class="c-label">企业邮箱</p><p class="c-val zh">3638****@qq.com</p></div>
+        <button class="cpy" data-copy="3638****@qq.com" aria-label="复制企业邮箱"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== 页脚 ===== -->
+<footer>
+  <div class="wavebox" aria-hidden="true">
+    <div class="wavetrack">
+      <svg viewBox="0 0 2880 120" preserveAspectRatio="none" style="flex:0 0 50%;height:100%">
+        <path d="M0,62 C240,116 480,12 720,58 C960,104 1200,20 1440,62 C1680,104 1920,22 2160,60 C2400,98 2640,30 2880,62 L2880,120 L0,120 Z" fill="#070b18"/>
+      </svg>
+      <svg viewBox="0 0 2880 120" preserveAspectRatio="none" style="flex:0 0 50%;height:100%">
+        <path d="M0,62 C240,116 480,12 720,58 C960,104 1200,20 1440,62 C1680,104 1920,22 2160,60 C2400,98 2640,30 2880,62 L2880,120 L0,120 Z" fill="#070b18"/>
+      </svg>
+    </div>
+  </div>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="44" height="44" rx="10" stroke="url(#lg-mark)" stroke-width="2" fill="rgba(33,230,255,.06)"/>
+        <path d="M10 30c5-8 9-8 14 0s9 8 14 0" stroke="url(#lg-mark)" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M10 20c5-8 9-8 14 0s9 8 14 0" stroke="url(#lg-mark)" stroke-width="2.6" stroke-linecap="round" opacity=".5"/>
+      </svg>
+      <div><b>大风大浪集团</b><small>DAFENG DALANG GROUP</small></div>
+    </div>
+    <div class="foot-links">
       <a href="#home">首页</a>
       <a href="#about">集团简介</a>
       <a href="#brand">旗下品牌</a>
       <a href="#ceo">CEO介绍</a>
       <a href="#contact">联系我们</a>
-      <a href="https://dafdal.github.io/2918youxi" target="_blank">游戏中心</a>
-    </nav>
-  </div>
-</header>
-
-<div class="container">
-  <section id="home" class="card hero">
-    <span class="corner tl"></span>
-    <span class="corner tr"></span>
-    <span class="corner bl"></span>
-    <span class="corner br"></span>
-    <h1>大风大浪集团</h1>
-    <p>乘风破浪，开拓全新产业版图</p>
-  </section>
-
-  <div class="disclaimer">
-    <span class="info-icon">i</span>
-    <strong>免责声明</strong><br>
-    本网站为完全虚构演示网站，大风大浪集团、相关人物、企业信息、联系方式均为虚构创作，不对应任何现实实体。网站所有内容仅供网页技术演示学习使用，不构成任何商业参考。若有雷同纯属巧合。
-  </div>
-
-  <section id="about" class="card">
-    <span class="corner tl"></span>
-    <span class="corner tr"></span>
-    <span class="corner bl"></span>
-    <span class="corner br"></span>
-    <h2>集团简介</h2>
-    <p>大风大浪集团是综合产业集团，业务覆盖汽车制造、乒乓球运动装备两大核心赛道，坚持创新发展理念。集团稳步扩张业务版图，打造年轻化、高性能产品，面向大众提供高性价比产品。集团秉持勇往直前的企业精神，不惧挑战，在行业内持续创新突破。</p>
-  </section>
-
-  <section id="brand" class="card">
-    <span class="corner tl"></span>
-    <span class="corner tr"></span>
-    <span class="corner bl"></span>
-    <span class="corner br"></span>
-    <h2>旗下知名品牌</h2>
-    <div class="brand-item">
-      <h3>风浪汽车</h3>
-      <p>高性能民用汽车研发制造品牌</p>
+      <a href="https://rqpmyl.gicp.fun/" target="_blank" rel="noopener">工具箱</a>
     </div>
-    <div class="brand-item">
-      <h3>战神飞拍</h3>
-      <p>专业乒乓球装备品牌</p>
-    </div>
-  </section>
-
-  <section id="ceo" class="card">
-    <span class="corner tl"></span>
-    <span class="corner tr"></span>
-    <span class="corner bl"></span>
-    <span class="corner br"></span>
-    <h2>集团CEO介绍</h2>
-    <p><strong>姓名：</strong>汤学臻</p>
-    <p><strong>职位：</strong>大风大浪集团创始人、首席执行官</p>
-    <p style="margin-top:0.6rem;">统筹风浪汽车、战神飞拍两大核心品牌全部业务，专注汽车与乒乓球装备创新研发，带领集团稳步拓展产业市场，以敢于直面大风大浪的理念打造优质产品。</p>
-  </section>
-
-  <section id="contact" class="card">
-    <span class="corner tl"></span>
-    <span class="corner tr"></span>
-    <span class="corner bl"></span>
-    <span class="corner br"></span>
-    <h2>联系我们</h2>
-    <p>联系电话：150****4684</p>
-    <p>企业邮箱：3638****@qq.com</p>
-  </section>
-</div>
-
-<footer>
-  <p>大风大浪集团 © 2026 版权所有</p>
+  </div>
+  <div class="foot-bar">
+    <p>大风大浪集团 © 2026 版权所有</p>
+    <p class="disc">本网站为完全虚构演示网站，内容仅供网页技术演示学习使用，如有雷同纯属巧合</p>
+  </div>
 </footer>
 
-<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})"></button>
+<button id="backTop" aria-label="回到顶部">
+  <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+    <circle cx="20" cy="20" r="17" stroke="rgba(142,163,201,.25)" stroke-width="2.5"/>
+    <circle id="ring" cx="20" cy="20" r="17" stroke="url(#lg-mark)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="106.8"/>
+  </svg>
+  <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+</button>
 
-<canvas id="particleCanvas"></canvas>
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
-  document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-    createParticles(e.clientX, e.clientY);
-  });
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var fine=matchMedia("(pointer: fine)").matches;
 
-  const cards = document.querySelectorAll('.card');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(item => {
-      if (item.isIntersecting) {
-        item.target.classList.add('show');
-      }
-    });
-  }, { threshold: 0.15 });
-  cards.forEach(c => observer.observe(c));
-
-  const backTop = document.getElementById('backTop');
-
-  backTop.addEventListener('mousemove', function (e) {
-    const rect = backTop.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    backTop.style.setProperty('--mx', x + '%');
-    backTop.style.setProperty('--my', y + '%');
-  });
-
-  backTop.addEventListener('mouseleave', function () {
-    backTop.style.setProperty('--mx', '50%');
-    backTop.style.setProperty('--my', '50%');
-  });
-
-  // 滚动到页面20%高度才显示返回顶部按钮
-  window.addEventListener('scroll', ()=>{
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    const percent = scrollTop / (scrollHeight - window.innerHeight);
-    if(percent >= 0.2){
-      backTop.classList.add('show');
-    }else{
-      backTop.classList.remove('show');
-    }
-  })
-
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+/* ===== 粒子场 ===== */
+(function(){
+  if(reduce)return;
+  var cv=$("#fx");if(!cv||!cv.getContext)return;
+  var ctx=cv.getContext("2d");
+  var W,H,ps=[],dpr=Math.min(devicePixelRatio||1,2);
+  var COL=["33,230,255","61,123,255","138,92,255"];
+  function resize(){
+    W=innerWidth;H=innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;
+    cv.style.width=W+"px";cv.style.height=H+"px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
   }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  class Particle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 5 + 2;
-      this.vx = Math.cos(angle) * speed;
-      this.vy = Math.sin(angle) * speed;
-      this.life = 1;
-      this.decay = Math.random() * 0.018 + 0.008;
-      this.size = Math.random() * 3 + 1.5;
-      this.color = Math.random() > 0.5
-        ? `rgba(125, 211, 252, ${this.life})`
-        : `rgba(165, 180, 252, ${this.life})`;
-      this.glow = Math.random() * 12 + 6;
+  function build(){
+    var n=Math.max(34,Math.min(80,Math.round(W*H/24000)));
+    ps=[];
+    for(var i=0;i<n;i++){
+      ps.push({
+        x:Math.random()*W,y:Math.random()*H,
+        r:0.6+Math.random()*1.8,
+        vx:(Math.random()-.5)*.18,
+        vy:-.06-Math.random()*.22,
+        tw:.002+Math.random()*.012,
+        ph:Math.random()*Math.PI*2,
+        c:COL[Math.floor(Math.random()*COL.length)]
+      });
     }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      this.vx *= 0.97;
-      this.vy *= 0.97;
-      this.life -= this.decay;
-      this.color = this.color.replace(/[\d.]+\)$/, `${this.life})`);
-    }
-
-    draw() {
-      ctx.save();
-      ctx.globalAlpha = Math.max(this.life, 0);
-      ctx.shadowBlur = this.glow;
-      ctx.shadowColor = this.color;
-      ctx.fillStyle = this.color;
+  }
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    var t=Date.now()*.001;
+    for(var i=0;i<ps.length;i++){
+      var p=ps[i];
+      p.x+=p.vx;p.y+=p.vy;p.ph+=p.tw;
+      if(p.y<-12){p.y=H+12;p.x=Math.random()*W}
+      if(p.x<-12)p.x=W+12;if(p.x>W+12)p.x=-12;
+      var a=.16+Math.abs(Math.sin(p.ph+t))*0.5;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle="rgba("+p.c+","+a.toFixed(3)+")";
       ctx.fill();
-      ctx.restore();
     }
+    requestAnimationFrame(frame);
   }
+  resize();build();
+  addEventListener("resize",function(){resize();build()},{passive:true});
+  requestAnimationFrame(frame);
+})();
 
-  function createParticles(x, y) {
-    for (let i = 0; i < 40; i++) {
-      particles.push(new Particle(x, y));
-    }
-  }
+/* ===== 光标辉光 ===== */
+if(fine&&!reduce){
+  var cur=$("#cursor");
+  var tx=innerWidth/2,ty=innerHeight/2,x=tx,y=ty;
+  addEventListener("mousemove",function(e){tx=e.clientX;ty=e.clientY},{passive:true});
+  (function loop(){
+    x+=(tx-x)*.12;y+=(ty-y)*.12;
+    cur.style.transform="translate("+(x-270)+"px,"+(y-270)+"px)";
+    requestAnimationFrame(loop);
+  })();
+}
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles = particles.filter(p => p.life > 0);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
+/* ===== 滚动：进度条 / 顶栏 / 回到顶部 ===== */
+var sp=$("#sp"),head=$("#head"),bt=$("#backTop"),ring=$("#ring");
+var RC=106.8;
+function onScroll(){
+  var st=scrollY;
+  var max=document.documentElement.scrollHeight-innerHeight;
+  var p=max>0?st/max:0;
+  sp.style.transform="scaleX("+p+")";
+  head.classList.toggle("scrolled",st>10);
+  bt.classList.toggle("show",st>320);
+  ring.style.strokeDashoffset=(RC*(1-p)).toFixed(1);
+}
+addEventListener("scroll",onScroll,{passive:true});
+onScroll();
+
+/* ===== 滚动显现 ===== */
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}
+  });
+},{threshold:.14,rootMargin:"0px 0px -40px 0px"});
+$$(".rv").forEach(function(el){io.observe(el)});
+
+/* ===== 品牌卡 3D 倾斜 ===== */
+if(fine&&!reduce){
+  $$(".bcard").forEach(function(card){
+    card.addEventListener("mousemove",function(e){
+      var r=card.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width;
+      var py=(e.clientY-r.top)/r.height;
+      card.style.transform="perspective(900px) rotateY("+((px-.5)*9).toFixed(2)+"deg) rotateX("+((.5-py)*9).toFixed(2)+"deg) translateY(-6px)";
     });
-    requestAnimationFrame(animateParticles);
-  }
+    card.addEventListener("mouseleave",function(){card.style.transform=""});
+  });
+}
 
-  animateParticles();
+/* ===== Toast ===== */
+var toastTimer;
+function toast(msg){
+  var t=$("#toast");
+  t.textContent=msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.classList.remove("show")},2200);
+}
+
+/* ===== 免责弹窗 ===== */
+var ic=$("#infoIcon"),pop=$("#infoPop");
+function closePop(){pop.classList.remove("show")}
+ic.addEventListener("click",function(e){e.stopPropagation();pop.classList.toggle("show")});
+ic.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();e.stopPropagation();pop.classList.toggle("show")}});
+document.addEventListener("click",function(e){if(!pop.contains(e.target))closePop()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closePop()});
+
+/* ===== 复制 ===== */
+$$("[data-copy]").forEach(function(b){
+  b.addEventListener("click",function(){
+    var v=b.getAttribute("data-copy");
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(v).then(function(){toast("已复制："+v)}).catch(function(){toast("复制失败，请手动复制")});
+    }else{toast("当前环境不支持自动复制")}
+  });
+});
+
+/* ===== 演示按钮 ===== */
+$$("[data-demo]").forEach(function(b){
+  b.addEventListener("click",function(){toast("演示站点：更多内容敬请期待")});
+});
+
+/* ===== 移动端菜单 ===== */
+var burger=$("#burger"),mnav=$("#mnav");
+function closeMenu(){burger.classList.remove("on");mnav.classList.remove("open");document.body.classList.remove("lock")}
+burger.addEventListener("click",function(){
+  burger.classList.toggle("on");
+  mnav.classList.toggle("open");
+  document.body.classList.toggle("lock");
+});
+$$(".mnav a").forEach(function(a){a.addEventListener("click",closeMenu)});
+
+/* ===== 导航高亮 ===== */
+var secs=$$("main section[id]");
+var navIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      var hash="#"+e.target.id;
+      $$("nav a[href^='#'],.mnav a[href^='#']").forEach(function(a){
+        a.classList.toggle("active",a.getAttribute("href")===hash);
+      });
+    }
+  });
+},{rootMargin:"-45% 0px -50% 0px"});
+secs.forEach(function(s){navIO.observe(s)});
+
+/* ===== 回到顶部 ===== */
+bt.addEventListener("click",function(){
+  scrollTo({top:0,behavior:reduce?"auto":"smooth"});
+});
+})();
 </script>
-
 </body>
 </html>
