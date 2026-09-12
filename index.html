@@ -50,6 +50,16 @@ nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:3px;height
 nav a:hover,nav a.active{color:var(--ink)}
 nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 nav .sep{width:1px;height:18px;background:rgba(116,154,255,.25);margin:0 6px}
+.more-wrap{position:relative;display:flex}
+.more-btn{display:flex;align-items:center;gap:5px;background:none;border:none;color:var(--mut);font-size:13.5px;padding:8px 10px;letter-spacing:1px;cursor:pointer;transition:color .3s;font-family:inherit;white-space:nowrap}
+.more-btn:hover,.more-wrap.open .more-btn{color:var(--ink)}
+.more-btn svg{width:12px;height:12px;transition:transform .3s}
+.more-wrap.open .more-btn svg{transform:rotate(180deg)}
+.more-menu{position:absolute;top:calc(100% + 10px);right:0;min-width:158px;background:rgba(8,13,26,.97);border:1px solid var(--line);backdrop-filter:blur(14px);padding:8px 0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(8px);transition:.25s;z-index:1200;box-shadow:0 18px 50px rgba(2,4,10,.7)}
+.more-wrap.open .more-menu{opacity:1;visibility:visible;transform:none}
+.more-menu a{padding:10px 20px;font-size:13.5px;white-space:nowrap}
+.more-menu a::after{display:none}
+.more-menu a:hover{background:rgba(33,230,255,.08);color:var(--cy)}
 .header-right{display:flex;align-items:center;gap:14px}
 .auth{display:flex;align-items:center;gap:8px}
 .auth a{font-size:13px;color:#bfeaff;text-decoration:none;padding:7px 16px;border:1px solid rgba(33,230,255,.4);clip-path:polygon(9px 0,100% 0,100% calc(100% - 9px),calc(100% - 9px) 100%,0 100%,0 9px);transition:.3s;background:rgba(33,230,255,.05)}
@@ -312,7 +322,7 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
 <div id="sp" aria-hidden="true"></div>
 <!-- ===== 顶部导航 ===== -->
 <header id="head">
-  <a class="logo" href="#home" aria-label="Dafeng Dalang Group">
+  <a class="logo" href="#home" aria-label="DAFDAL Group">
     <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
       <defs><linearGradient id="lg-mark" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#21e6ff"/><stop offset="1" stop-color="#8a5cff"/></linearGradient></defs>
       <rect x="2" y="2" width="44" height="44" rx="10" stroke="url(#lg-mark)" stroke-width="2" fill="rgba(33,230,255,.06)"/>
@@ -320,7 +330,7 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
       <path d="M10 20c5-8 9-8 14 0s9 8 14 0" stroke="url(#lg-mark)" stroke-width="2.6" stroke-linecap="round" opacity=".5"/>
       <circle cx="38" cy="10" r="2.2" fill="#21e6ff"/>
     </svg>
-    <span class="lt"><b data-i18n="logo.brand">大风大浪集团</b><small>DAFENG DALANG GROUP</small></span>
+    <span class="lt"><b data-i18n="logo.brand">大风大浪集团</b><small>DAFDAL Group</small></span>
   </a>
   <nav aria-label="Main navigation">
     <a href="#home" data-i18n="nav.home">首页</a>
@@ -330,10 +340,16 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
     <a href="#contact" data-i18n="nav.contact">联系我们</a>
     <span class="sep" aria-hidden="true"></span>
     <a href="https://maipdf.cn/file/at6aa4b328e1cb3/pdf" target="_blank" rel="noopener" data-i18n="nav.novel">小说查看</a>
-    <a href="https://bo1w3q.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.games">跳转游戏</a>
-    <a href="https://zu1iy1.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.jelly">解压果冻</a>
-    <a href="https://dafdal.github.io/lezi/" target="_blank" rel="noopener" data-i18n="nav.lezi">乐子AI</a>
-    <a href="https://x59d9y.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.feedback">意见反馈</a>
+    <div class="more-wrap" id="moreWrap">
+      <button class="more-btn" id="moreBtn" type="button" aria-haspopup="true" aria-expanded="false"><span data-i18n="nav.more">更多</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="more-menu" id="moreMenu">
+        <a href="https://bo1w3q.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.games">跳转游戏</a>
+        <a href="https://zu1iy1.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.jelly">解压果冻</a>
+        <a href="https://dafdal.github.io/lezi/" target="_blank" rel="noopener" data-i18n="nav.lezi">乐子AI</a>
+        <a href="https://x59d9y.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.feedback">意见反馈</a>
+        <a href="https://dafdal.github.io/2918youxi" target="_blank" rel="noopener" data-i18n="nav.games2918">2918游戏</a>
+      </div>
+    </div>
   </nav>
   <div class="header-right">
     <div class="auth">
@@ -580,7 +596,7 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
         <path d="M10 30c5-8 9-8 14 0s9 8 14 0" stroke="url(#lg-mark)" stroke-width="2.6" stroke-linecap="round"/>
         <path d="M10 20c5-8 9-8 14 0s9 8 14 0" stroke="url(#lg-mark)" stroke-width="2.6" stroke-linecap="round" opacity=".5"/>
       </svg>
-      <div><b data-i18n="logo.brand">大风大浪集团</b><small>DAFENG DALANG GROUP</small></div>
+      <div><b data-i18n="logo.brand">大风大浪集团</b><small>DAFDAL Group</small></div>
     </div>
     <div class="foot-links">
       <a href="#home" data-i18n="nav.home">首页</a>
@@ -613,25 +629,26 @@ var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 var fine=matchMedia("(pointer: fine)").matches;
 /* ===== 国际化 ===== */
 var I18N={
-  "doc.title":{en:"Dafeng Dalang Group - Official Website",zh:"大风大浪集团 - 官方网站"},
-  "logo.brand":{en:"Dafeng Dalang",zh:"大风大浪集团"},
+  "doc.title":{en:"DAFDAL Group - Official Website",zh:"大风大浪集团 - 官方网站"},
+  "logo.brand":{en:"DAFDAL",zh:"大风大浪集团"},
   "nav.home":{en:"Home",zh:"首页"},
   "nav.ceo":{en:"CEO",zh:"CEO介绍"},
   "nav.business":{en:"Business",zh:"业务板块"},
   "nav.racing":{en:"Racing",zh:"赛车游戏"},
   "nav.contact":{en:"Contact",zh:"联系我们"},
   "nav.novel":{en:"Novel",zh:"小说查看"},
+  "nav.more":{en:"More",zh:"更多"},
   "nav.games":{en:"Games",zh:"跳转游戏"},
   "nav.jelly":{en:"Jelly",zh:"解压果冻"},
   "nav.lezi":{en:"Lezi AI",zh:"乐子AI"},
-  "nav.feedback":{en:"Feedback",zh:"意见反馈"},
+  "nav.feedback":{en:"Feedback",zh:"意见反馈"}, "nav.games2918":{en:"2918 Games",zh:"2918游戏"},
   "nav.login":{en:"Login",zh:"登录"},
   "nav.register":{en:"Register",zh:"注册"},
   "nav.loginReg":{en:"Login / Register",zh:"登录 / 注册"},
   "disc.title":{en:"Disclaimer",zh:"免责声明"},
-  "disc.text":{en:"This website is a purely fictional demonstration. Dafeng Dalang Group, the people, company information and contact details shown here are fictional creations and do not correspond to any real entity. All content is for web technology demonstration and learning purposes only and does not constitute any commercial reference. Any resemblance is purely coincidental.",zh:"本网站为完全虚构演示网站，大风大浪集团、相关人物、企业信息、联系方式均为虚构创作，不对应任何现实实体。网站所有内容仅供网页技术演示学习使用，不构成任何商业参考。若有雷同纯属巧合。"},
+  "disc.text":{en:"This website is a purely fictional demonstration. DAFDAL Group, the people, company information and contact details shown here are fictional creations and do not correspond to any real entity. All content is for web technology demonstration and learning purposes only and does not constitute any commercial reference. Any resemblance is purely coincidental.",zh:"本网站为完全虚构演示网站，大风大浪集团、相关人物、企业信息、联系方式均为虚构创作，不对应任何现实实体。网站所有内容仅供网页技术演示学习使用，不构成任何商业参考。若有雷同纯属巧合。"},
   "hero.kick":{en:"EST. 2026 · DIVERSIFIED GROUP",zh:"EST. 2026 · 综合企业集团"},
-  "hero.title":{en:"DAFENG DALANG GROUP",zh:"大风大浪集团"},
+  "hero.title":{en:"DAFDAL Group",zh:"大风大浪集团"},
   "hero.slogan":{en:"Diversified Industries, Innovation-Driven Growth",zh:"多元产业，创新驱动前行"},
   "chip.rd":{en:"TECH R&amp;D",zh:"科技研发"},
   "chip.sd":{en:"SMART DEVICES",zh:"智能设备"},
@@ -645,7 +662,7 @@ var I18N={
   "m.7":{en:"Racing Game",zh:"赛车游戏"},
   "m.8":{en:"Great Value",zh:"高性价比"},
   "about.title":{en:"About Us",zh:"集团简介"},
-  "about.p1":{en:"Dafeng Dalang Group is a <strong>diversified conglomerate</strong> covering technology R&amp;D, smart devices, sports &amp; fitness equipment and more. Driven by innovation and focused on real user experience, the Group develops practical, high-value products for everyday users. With a well-structured talent pipeline and a team of core managers and R&amp;D specialists, the Group keeps expanding into new tracks and strengthening its capabilities.",zh:"大风大浪集团是一家<strong>多元化综合企业集团</strong>，业务覆盖<strong>科技研发、智能设备、文体装备</strong>等多个领域。集团坚持创新为本，注重产品实际体验，面向广大普通用户打造实用、高性价比的各类产品。集团内部人才梯队完善，拥有多名核心管理人员与技术研发人员，不断拓展新赛道，持续提升自身实力。"},
+  "about.p1":{en:"DAFDAL Group is a <strong>diversified conglomerate</strong> covering technology R&amp;D, smart devices, sports &amp; fitness equipment and more. Driven by innovation and focused on real user experience, the Group develops practical, high-value products for everyday users. With a well-structured talent pipeline and a team of core managers and R&amp;D specialists, the Group keeps expanding into new tracks and strengthening its capabilities.",zh:"大风大浪集团是一家<strong>多元化综合企业集团</strong>，业务覆盖<strong>科技研发、智能设备、文体装备</strong>等多个领域。集团坚持创新为本，注重产品实际体验，面向广大普通用户打造实用、高性价比的各类产品。集团内部人才梯队完善，拥有多名核心管理人员与技术研发人员，不断拓展新赛道，持续提升自身实力。"},
   "about.li1":{en:"Diversified portfolio: tech R&amp;D, smart devices, sports equipment",zh:"多元布局：科技研发 + 智能设备 + 文体装备"},
   "about.li2":{en:"Built for everyday users, focused on real experience",zh:"面向广大普通用户，注重实际体验"},
   "about.li3":{en:"A strong talent pipeline, always exploring new tracks",zh:"人才梯队完善，持续拓展新赛道"},
@@ -656,7 +673,7 @@ var I18N={
   "feat3.t":{en:"Great Value",zh:"高性价比"},
   "feat3.d":{en:"Built for the mass market with practical, high-value quality products.",zh:"面向大众市场，打造实用、高性价比的各类优质产品。"},
   "ceo.title":{en:"Our CEO",zh:"CEO介绍"},
-  "ceo.role":{en:"Chairman &amp; CEO of Dafeng Dalang Group",zh:"大风大浪集团董事长兼CEO"},
+  "ceo.role":{en:"Chairman &amp; CEO of DAFDAL Group",zh:"大风大浪集团董事长兼CEO"},
   "ceo.bio1":{en:"Leads the Group's overall strategy, steering the direction of every business segment and driving new projects from planning to launch. Focused on technical innovation and talent development, he leads the team to keep exploring in smart hardware and sports equipment, sets the Group's roadmap, and controls product quality and pace of growth.",zh:"主导集团整体战略规划，统筹各个业务板块的发展方向，推动新项目立项落地。注重技术创新与人才培养，带领团队在智能硬件、文体设备领域持续探索，制定集团发展路线，把控产品质量与发展节奏。"},
   "ceo.bio2":{en:"Core management <strong>Lian Jinshan and Lei Guowei</strong> take part in major project decisions, working together to move every business forward steadily.",zh:"集团核心管理人员<strong>廉晋善、雷国蔚</strong>参与重大项目决策，协同推进各项业务稳步向前。"},
   "ceo.tag1":{en:"Strategy",zh:"战略规划"},
@@ -680,7 +697,7 @@ var I18N={
   "contact.email":{en:"Email",zh:"企业邮箱"},
   "contact.phone.copy":{en:"Copy phone number",zh:"复制联系电话"},
   "contact.email.copy":{en:"Copy email",zh:"复制企业邮箱"},
-  "foot.copyright":{en:"Dafeng Dalang Group © 2026 All Rights Reserved",zh:"大风大浪集团 © 2026 版权所有"},
+  "foot.copyright":{en:"DAFDAL Group © 2026 All Rights Reserved",zh:"大风大浪集团 © 2026 版权所有"},
   "aria.langSwitch":{en:"Switch language",zh:"切换语言"},
   "toast.copied":{en:"Copied: ",zh:"已复制："},
   "toast.copyfail":{en:"Copy failed. Please copy manually.",zh:"复制失败，请手动复制"},
@@ -803,6 +820,12 @@ $$("[data-copy]").forEach(function(b){
     }else{toast(I18N["toast.nocopy"][lang])}
   });
 });
+/* ===== 更多下拉 ===== */
+var mw=$("#moreWrap"),mb=$("#moreBtn");
+mb.addEventListener("click",function(e){e.stopPropagation();mw.classList.toggle("open");mb.setAttribute("aria-expanded",mw.classList.contains("open")?"true":"false")});
+$$("#moreMenu a").forEach(function(a){a.addEventListener("click",function(){mw.classList.remove("open");mb.setAttribute("aria-expanded","false")})});
+document.addEventListener("click",function(e){if(!mw.contains(e.target)){mw.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){mw.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
 /* ===== 移动端菜单 ===== */
 var burger=$("#burger"),mnav=$("#mnav");
 function closeMenu(){burger.classList.remove("on");mnav.classList.remove("open");document.body.classList.remove("lock")}
