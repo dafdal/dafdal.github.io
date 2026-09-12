@@ -206,6 +206,10 @@ h2.st{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:3px;color:
 .biz-body{position:relative;z-index:2;padding:44px 40px;display:flex;flex-direction:column;justify-content:center}
 .biz-body h3{font-size:clamp(22px,3vw,30px);font-weight:900;letter-spacing:2px;color:#fff;margin-bottom:14px}
 .biz-body p{color:var(--mut);font-size:15.5px;line-height:2}
+.biz-body .act{display:inline-flex;align-items:center;gap:9px;margin-top:24px;padding:12px 24px;border:none;cursor:pointer;color:#031018;font-size:14px;font-weight:700;letter-spacing:2px;text-decoration:none;background:linear-gradient(100deg,#21e6ff,#3d7bff);transition:.32s;clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+.biz-body .act svg{width:16px;height:16px;transition:transform .3s}
+.biz-body .act:hover{box-shadow:0 0 34px rgba(33,230,255,.45);transform:translateY(-2px)}
+.biz-body .act:hover svg{transform:translateX(4px)}
 /* ===== 游戏与小说双卡 ===== */
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:30px;perspective:1400px}
 .bcard{position:relative;background:linear-gradient(160deg,rgba(14,21,42,.92),rgba(7,11,24,.97));border:1px solid var(--line);overflow:hidden;transition:border-color .35s,box-shadow .35s;transform-style:preserve-3d;will-change:transform}
@@ -252,7 +256,10 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
 .foot-links a::after{content:"";position:absolute;left:14px;right:14px;bottom:5px;height:1px;background:var(--cy);transform:scaleX(0);transform-origin:left;transition:.3s}
 .foot-links a:hover{color:var(--cy)}
 .foot-links a:hover::after{transform:scaleX(1)}
-.foot-bar{max-width:1200px;margin:44px auto 0;padding-top:26px;border-top:1px solid rgba(116,154,255,.1);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-bar{max-width:1200px;margin:44px auto 0;padding-top:26px;border-top:1px solid rgba(116,154,255,.1);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-bar .dy{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border:1px solid rgba(116,154,255,.35);border-radius:6px;color:var(--mut);font-size:13px;letter-spacing:2px;text-decoration:none;transition:.3s}
+.foot-bar .dy svg{width:17px;height:17px}
+.foot-bar .dy:hover{color:var(--cy);border-color:var(--cy);box-shadow:0 0 18px rgba(33,230,255,.3)}
 .foot-bar p{font-size:13px;color:var(--dim)}
 .foot-bar .disc{font-size:12px}
 /* ===== 回到顶部 ===== */
@@ -322,7 +329,7 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
 <div id="sp" aria-hidden="true"></div>
 <!-- ===== 顶部导航 ===== -->
 <header id="head">
-  <a class="logo" href="#home" aria-label="DAFDAL Group">
+  <a class="logo" href="https://dafdal.github.io/#home" aria-label="DAFDAL Group">
     <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
       <defs><linearGradient id="lg-mark" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#21e6ff"/><stop offset="1" stop-color="#8a5cff"/></linearGradient></defs>
       <rect x="2" y="2" width="44" height="44" rx="10" stroke="url(#lg-mark)" stroke-width="2" fill="rgba(33,230,255,.06)"/>
@@ -333,11 +340,11 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
     <span class="lt"><b data-i18n="logo.brand">大风大浪集团</b><small>DAFDAL Group</small></span>
   </a>
   <nav aria-label="Main navigation">
-    <a href="#home" data-i18n="nav.home">首页</a>
-    <a href="#ceo" data-i18n="nav.ceo">CEO介绍</a>
-    <a href="#business" data-i18n="nav.business">业务板块</a>
-    <a href="#racing" data-i18n="nav.racing">赛车游戏</a>
-    <a href="#contact" data-i18n="nav.contact">联系我们</a>
+    <a href="https://dafdal.github.io/#home" data-i18n="nav.home">首页</a>
+    <a href="https://dafdal.github.io/#ceo" data-i18n="nav.ceo">CEO介绍</a>
+    <a href="https://dafdal.github.io/#business" data-i18n="nav.business">业务板块</a>
+    <a href="https://dafdal.github.io/#racing" data-i18n="nav.racing">赛车游戏</a>
+    <a href="https://dafdal.github.io/#contact" data-i18n="nav.contact">联系我们</a>
     <span class="sep" aria-hidden="true"></span>
     <a href="https://maipdf.cn/file/at6aa4b328e1cb3/pdf" target="_blank" rel="noopener" data-i18n="nav.novel">小说查看</a>
     <div class="more-wrap" id="moreWrap">
@@ -372,11 +379,11 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
   </div>
 </header>
 <div class="mnav" id="mnav">
-  <a href="#home" data-i18n="nav.home">首页</a>
-  <a href="#ceo" data-i18n="nav.ceo">CEO介绍</a>
-  <a href="#business" data-i18n="nav.business">业务板块</a>
-  <a href="#racing" data-i18n="nav.racing">赛车游戏</a>
-  <a href="#contact" data-i18n="nav.contact">联系我们</a>
+  <a href="https://dafdal.github.io/#home" data-i18n="nav.home">首页</a>
+  <a href="https://dafdal.github.io/#ceo" data-i18n="nav.ceo">CEO介绍</a>
+  <a href="https://dafdal.github.io/#business" data-i18n="nav.business">业务板块</a>
+  <a href="https://dafdal.github.io/#racing" data-i18n="nav.racing">赛车游戏</a>
+  <a href="https://dafdal.github.io/#contact" data-i18n="nav.contact">联系我们</a>
   <a href="https://maipdf.cn/file/at6aa4b328e1cb3/pdf" target="_blank" rel="noopener" data-i18n="nav.novel">小说查看</a>
   <a href="https://bo1w3q.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.games">跳转游戏</a>
   <a href="https://zu1iy1.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.jelly">解压果冻</a>
@@ -517,6 +524,7 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
       <div class="biz-body">
         <h3 data-i18n="biz.name">战神飞拍 — 乒乓球辅助系统</h3>
         <p data-i18n="biz.desc">战神飞拍乒乓球辅助系统，面向乒乓球爱好者，辅助练习击球动作，帮助使用者纠正打球姿势，提升日常训练效果，是集团文体装备板块的重点产品。</p>
+        <a class="act" href="https://dafdal.github.io/zhanshenfeipai" target="_blank" rel="noopener"><span data-i18n="biz.cta">了解详情</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -599,17 +607,18 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
       <div><b data-i18n="logo.brand">大风大浪集团</b><small>DAFDAL Group</small></div>
     </div>
     <div class="foot-links">
-      <a href="#home" data-i18n="nav.home">首页</a>
-      <a href="#ceo" data-i18n="nav.ceo">CEO介绍</a>
-      <a href="#business" data-i18n="nav.business">业务板块</a>
-      <a href="#racing" data-i18n="nav.racing">赛车游戏</a>
-      <a href="#contact" data-i18n="nav.contact">联系我们</a>
+      <a href="https://dafdal.github.io/#home" data-i18n="nav.home">首页</a>
+      <a href="https://dafdal.github.io/#ceo" data-i18n="nav.ceo">CEO介绍</a>
+      <a href="https://dafdal.github.io/#business" data-i18n="nav.business">业务板块</a>
+      <a href="https://dafdal.github.io/#racing" data-i18n="nav.racing">赛车游戏</a>
+      <a href="https://dafdal.github.io/#contact" data-i18n="nav.contact">联系我们</a>
       <a href="https://dafdal.github.io/lezi/" target="_blank" rel="noopener" data-i18n="nav.lezi">乐子AI</a>
       <a href="https://x59d9y.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.feedback">意见反馈</a>
     </div>
   </div>
   <div class="foot-bar">
     <p data-i18n="foot.copyright">大风大浪集团 © 2026 版权所有</p>
+    <a class="dy" href="https://www.douyin.com/user/MS4wLjABAAAAodtGVKchoN41PimEDoK3RN3M4hPib6_6g8nmfXRVP4GAZQNQAEaSfDBguGQosMjw?from_tab_name=main" target="_blank" rel="noopener" aria-label="抖音 Douyin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.2" cy="16.8" r="3.4"/><path d="M10.6 16.6V5.4c0-1 .9-1.8 1.9-2l3.9-1"/><path d="M10.6 9.6c3.2 0 5.4 1.4 6.2 4.2"/></svg><span data-i18n="foot.douyin">抖音</span></a>
   </div>
 </footer>
 <button id="backTop" aria-label="Back to top">
@@ -680,6 +689,7 @@ var I18N={
   "ceo.tag2":{en:"Innovation",zh:"技术创新"},
   "ceo.tag3":{en:"Talent",zh:"人才培养"},
   "biz.title":{en:"Business",zh:"业务板块"},
+  "biz.cta":{en:"LEARN MORE",zh:"了解详情"},
   "biz.name":{en:"War God FlyPaddle – Table Tennis Assist System",zh:"战神飞拍 — 乒乓球辅助系统"},
   "biz.desc":{en:"The War God FlyPaddle table tennis assist system is built for table tennis fans. It helps players practice stroke movements, correct their posture, and improve everyday training results — a flagship product in the Group's sports &amp; fitness equipment division.",zh:"战神飞拍乒乓球辅助系统，面向乒乓球爱好者，辅助练习击球动作，帮助使用者纠正打球姿势，提升日常训练效果，是集团文体装备板块的重点产品。"},
   "alt.hero":{en:"Ocean of Waves",zh:"风浪之海"},
@@ -698,6 +708,7 @@ var I18N={
   "contact.phone.copy":{en:"Copy phone number",zh:"复制联系电话"},
   "contact.email.copy":{en:"Copy email",zh:"复制企业邮箱"},
   "foot.copyright":{en:"DAFDAL Group © 2026 All Rights Reserved",zh:"大风大浪集团 © 2026 版权所有"},
+  "foot.douyin":{en:"Douyin",zh:"抖音"},
   "aria.langSwitch":{en:"Switch language",zh:"切换语言"},
   "toast.copied":{en:"Copied: ",zh:"已复制："},
   "toast.copyfail":{en:"Copy failed. Please copy manually.",zh:"复制失败，请手动复制"},
@@ -833,7 +844,7 @@ burger.addEventListener("click",function(){burger.classList.toggle("on");mnav.cl
 $$(".mnav a").forEach(function(a){a.addEventListener("click",closeMenu)});
 /* ===== 导航高亮 ===== */
 var secs=$$("main section[id]");
-var navIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var hash="#"+e.target.id;$$("nav a[href^='#'],.mnav a[href^='#']").forEach(function(a){a.classList.toggle("active",a.getAttribute("href")===hash)})}})},{rootMargin:"-45% 0px -50% 0px"});
+var navIO=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var hash=e.target.id;$$("nav a[href*='#'],.mnav a[href*='#']").forEach(function(a){var h=(a.getAttribute("href")||"").split("#")[1];a.classList.toggle("active",h===hash)})}})},{rootMargin:"-45% 0px -50% 0px"});
 secs.forEach(function(s){navIO.observe(s)});
 /* ===== 回到顶部 ===== */
 bt.addEventListener("click",function(){scrollTo({top:0,behavior:reduce?"auto":"smooth"})});
