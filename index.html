@@ -348,6 +348,7 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
         <a href="https://dafdal.github.io/lezi/" target="_blank" rel="noopener" data-i18n="nav.lezi">乐子AI</a>
         <a href="https://x59d9y.gicp.fun/" target="_blank" rel="noopener" data-i18n="nav.feedback">意见反馈</a>
         <a href="https://dafdal.github.io/2918youxi" target="_blank" rel="noopener" data-i18n="nav.games2918">2918游戏</a>
+        <a href="https://dafdal.github.io/gg"target="_blank" rel="noopener" data-i18n="nav.gg">公告</a>
       </div>
     </div>
   </nav>
@@ -370,6 +371,7 @@ footer .wavebox{top:0;transform:translateY(-50%);z-index:1}
     </div>
     <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
+</div>
 </header>
 <div class="mnav" id="mnav">
   <a href="https://dafdal.github.io/#home" data-i18n="nav.home">首页</a>
@@ -822,7 +824,9 @@ var mw=$("#moreWrap"),mb=$("#moreBtn");
 mb.addEventListener("click",function(e){e.stopPropagation();mw.classList.toggle("open");mb.setAttribute("aria-expanded",mw.classList.contains("open")?"true":"false")});
 $$("#moreMenu a").forEach(function(a){a.addEventListener("click",function(){mw.classList.remove("open");mb.setAttribute("aria-expanded","false")})});
 document.addEventListener("click",function(e){if(!mw.contains(e.target)){mw.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
-document.addEventListener("keydown",function(e){if(e.key==="Escape"){mw.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){mw.classList.remove("open");mb.setAttribute("aria-expanded","false");announcePop.classList.remove("show")}});
+
+
 /* ===== 移动端菜单 ===== */
 var burger=$("#burger"),mnav=$("#mnav");
 function closeMenu(){burger.classList.remove("on");mnav.classList.remove("open");document.body.classList.remove("lock")}
